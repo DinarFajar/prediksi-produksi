@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,3 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 require __DIR__.'/auth.php';
+
+Route::middleware(['auth'])->group(function () {
+	Route::get('/', Controllers\HomeController::class)->name('home');
+});
