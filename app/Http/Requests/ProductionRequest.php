@@ -13,7 +13,22 @@ class ProductionRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'demand' => 'Permintaan',
+            'balance' => 'Sisa',
+            'deficit' => 'Kekurangan',
+            'production' => 'Produksi',
+        ];
     }
 
     /**
@@ -23,8 +38,14 @@ class ProductionRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        // store the data
+        if($this->is('productions') && $this->isMethod('post')) {
+            return [
+                'demand' => 'required|numeric',
+                'balance' => 'numeric',
+                'deficit' => 'numeric',
+                'production' => 'required|numeric',
+            ];
+        }
     }
 }
