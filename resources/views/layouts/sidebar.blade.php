@@ -16,6 +16,13 @@
     </a>
   </li>
 
+  <li class="nav-item {{ class_active('productions.*') }}">
+    <a class="nav-link" href="{{ route('productions.index') }}">
+      <i class="fas fa-fw fa-boxes"></i>
+      <span>Produksi</span>
+    </a>
+  </li>
+
   <!-- Divider -->
   <hr class="sidebar-divider">
 
