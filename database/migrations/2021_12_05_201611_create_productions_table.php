@@ -15,10 +15,10 @@ class CreateProductionsTable extends Migration
     {
         Schema::create('productions', function (Blueprint $table) {
             $table->id();
-            $table->integer('demand');
-            $table->integer('balance')->default(0);
-            $table->integer('deficit')->default(0);
-            $table->integer('production');
+            $table->integer('demand'); // permintaan
+            $table->integer('balance')->default(0); // sisa
+            $table->integer('deficit')->default(0); // kekurangan
+            $table->integer('production'); // produksi
             $table->timestamps();
         });
     }
