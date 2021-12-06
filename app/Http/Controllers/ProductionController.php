@@ -7,6 +7,8 @@ use App\Http\Requests\ProductionRequest;
 
 class ProductionController extends Controller
 {
+    private $dir = 'productions.';
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +16,9 @@ class ProductionController extends Controller
      */
     public function index()
     {
-        //
+        $data['productions'] = Production::latest()->get();
+
+        return view($this->dir.'index', $data);
     }
 
     /**
@@ -24,7 +28,7 @@ class ProductionController extends Controller
      */
     public function create()
     {
-        //
+        return view($this->dir.'create');
     }
 
     /**
@@ -35,7 +39,13 @@ class ProductionController extends Controller
      */
     public function store(ProductionRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        Production::create($data);
+
+        return redirect()
+            ->route('productions.index')
+            ->with('success', 'Data Produksi berhasil ditambahkan');
     }
 
     /**
@@ -46,7 +56,9 @@ class ProductionController extends Controller
      */
     public function show(Production $production)
     {
-        //
+        $data['production'] = $production;
+
+        return view($this->dir.'show', $data);
     }
 
     /**
@@ -57,7 +69,9 @@ class ProductionController extends Controller
      */
     public function edit(Production $production)
     {
-        //
+        $data['production'] = $production;
+
+        return view($this->dir.'edit', $data);
     }
 
     /**
@@ -69,7 +83,13 @@ class ProductionController extends Controller
      */
     public function update(ProductionRequest $request, Production $production)
     {
-        //
+        $data = $request->validated();
+
+        $production->update($data);
+
+        return redirect()
+            ->route('productions.index')
+            ->with('success', 'Data Produksi berhasil diperbarui');
     }
 
     /**
@@ -80,6 +100,10 @@ class ProductionController extends Controller
      */
     public function destroy(Production $production)
     {
-        //
+        $production->delete();
+
+        return redirect()
+            ->route('productions.index')
+            ->with('success', 'Data Produksi berhasil dihapus');
     }
 }
