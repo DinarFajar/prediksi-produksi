@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Production;
-use App\Http\Requests\Production\{StoreProductionRequest, UpdateProductionRequest};
+use App\Http\Requests\ProductionRequest;
 
 class ProductionController extends Controller
 {
@@ -30,10 +30,10 @@ class ProductionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\Production\StoreProductionRequest  $request
+     * @param  \App\Http\Requests\ProductionRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProductionRequest $request)
+    public function store(ProductionRequest $request)
     {
         //
     }
@@ -63,11 +63,11 @@ class ProductionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\Production\UpdateProductionRequest  $request
+     * @param  \App\Http\Requests\ProductionRequest  $request
      * @param  \App\Models\Production  $production
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProductionRequest $request, Production $production)
+    public function update(ProductionRequest $request, Production $production)
     {
         //
     }
