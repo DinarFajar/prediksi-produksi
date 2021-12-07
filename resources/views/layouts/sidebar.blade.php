@@ -16,6 +16,15 @@
     </a>
   </li>
 
+  
+  {{-- <li class="nav-item {{ class_active('templates.*') }}">
+    <a class="nav-link" href="{{ route('templates.index') }}">
+      <i class="fas fa-fw fa-images"></i>
+      <span>Template</span>
+    </a>
+  </li>  --}}
+
+
   <li class="nav-item {{ class_active('productions.*') }}">
     <a class="nav-link" href="{{ route('productions.index') }}">
       <i class="fas fa-fw fa-boxes"></i>

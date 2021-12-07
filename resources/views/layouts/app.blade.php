@@ -16,6 +16,20 @@
   <!-- Custom styles for this template-->
   <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
 
+  <style type="text/css">
+    .card-header-cs {
+      padding-left: 0;
+    }
+
+    .back-icon {
+      padding-left: 1.25rem; 
+      padding-right: 1.25rem;
+      cursor: pointer;
+    }
+
+    .back-icon:hover { background-color: #EFF0F3; }
+  </style>
+
   @stack('styles')
 
 </head>

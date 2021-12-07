@@ -21,4 +21,5 @@ Route::middleware(['auth'])->group(function () {
 
 	// resources
 	Route::resource('productions', Controllers\ProductionController::class);
+	Route::resource('templates', Controllers\TemplateController::class);
 });
