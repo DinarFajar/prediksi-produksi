@@ -20,7 +20,7 @@
         <x-alert-messages />
 
         <div class="table-responsive py-1 pr-1">
-          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <table id="dataTable" class="table table-bordered" width="100%" cellspacing="0">
             <thead>
               <tr>
                 <th>#</th>
