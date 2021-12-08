@@ -35,7 +35,7 @@
               @foreach($productions as $production)
                 <tr>
                   <td>{{ $loop->iteration }}</td>
-                  <td>{{ $production->created_at }}</td>
+                  <td>{{ $production->created_at->format('Y-m-d H:i') }}</td>
                   <td>{{ $production->demand }}</td>
                   <td>{{ $production->balance }}</td>
                   <td>{{ $production->deficit }}</td>
