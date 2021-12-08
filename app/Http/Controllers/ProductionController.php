@@ -88,7 +88,7 @@ class ProductionController extends Controller
         $production->update($data);
 
         return redirect()
-            ->route('productions.index')
+            ->route('productions.show', ['production' => $production->id])
             ->with('success', 'Data Produksi berhasil diperbarui');
     }
 
