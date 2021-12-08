@@ -11,7 +11,7 @@
         <div class="back-icon py-3" title="kembali" onclick="location.assign('{{ route('productions.index') }}')">
           <i class="fas fw fa-arrow-left"></i>
         </div>
-        <h6 class="m-0 ml-1 font-weight-bold text-primary mr-auto">Detail Template</h6>
+        <h6 class="m-0 ml-1 font-weight-bold text-primary mr-auto">Detail Produksi</h6>
         <form id="formDelete" action="{{ route('productions.destroy', ['production' => $production->id]) }}" method="POST">
           @method('DELETE')
           @csrf
