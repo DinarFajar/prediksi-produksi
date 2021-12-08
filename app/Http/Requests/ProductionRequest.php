@@ -42,9 +42,8 @@ class ProductionRequest extends FormRequest
         if($this->is('productions') && $this->isMethod('post')) {
             return [
                 'demand' => 'required|numeric',
-                'balance' => 'numeric',
-                'deficit' => 'numeric',
-                'production' => 'required|numeric',
+                'balance' => 'required_without:deficit|nullable|numeric',
+                'deficit' => 'required_without:balance|nullable|numeric',
             ];
         }
     }
