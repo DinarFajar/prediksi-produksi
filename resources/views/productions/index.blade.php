@@ -24,10 +24,10 @@
             <thead>
               <tr>
                 <th>#</th>
+                <th>Tanggal</th>
                 <th>Permintaan</th>
                 <th>Sisa</th>
                 <th>Kekurangan</th>
-                <th>Produksi</th>
                 <th></th>
               </tr>
             </thead>
@@ -35,10 +35,10 @@
               @foreach($productions as $production)
                 <tr>
                   <td>{{ $loop->iteration }}</td>
+                  <td>{{ $production->created_at }}</td>
                   <td>{{ $production->demand }}</td>
                   <td>{{ $production->balance }}</td>
                   <td>{{ $production->deficit }}</td>
-                  <td>{{ $production->production }}</td>
                   <td><a href="{{ route('productions.show', ['production' => $production->id]) }}">lihat detail</a></td>
                 </tr>
               @endforeach
