@@ -18,7 +18,8 @@ class CreateProductionsTable extends Migration
             $table->integer('demand'); // permintaan
             $table->integer('balance')->default(0); // sisa
             $table->integer('deficit')->default(0); // kekurangan
-            $table->integer('production'); // produksi
+            $table->integer('production')->default(0); // produksi
+            $table->integer('prediction')->default(0); // prediksi
             $table->timestamps();
         });
     }
