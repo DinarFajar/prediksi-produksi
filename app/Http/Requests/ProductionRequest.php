@@ -38,13 +38,10 @@ class ProductionRequest extends FormRequest
      */
     public function rules()
     {
-        // store the data
-        if($this->is('productions') && $this->isMethod('post')) {
-            return [
-                'demand' => 'required|numeric',
-                'balance' => 'required_without:deficit|nullable|numeric',
-                'deficit' => 'required_without:balance|nullable|numeric',
-            ];
-        }
+        return [
+            'demand' => 'required|numeric',
+            'balance' => 'required_without:deficit|nullable|numeric',
+            'deficit' => 'required_without:balance|nullable|numeric',
+        ];
     }
 }
