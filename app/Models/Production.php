@@ -18,7 +18,7 @@ class Production extends Model
         'demand', 
         'balance', 
         'deficit', 
-        'production',
         'prediction',
+        'production',
     ];
 }

@@ -38,6 +38,10 @@ class ProductionRequest extends FormRequest
      */
     public function rules()
     {
+        if($this->is('predictions/*') && $this->isMethod('put')) {
+            return ['production' => 'required|numeric'];
+        }
+
         return [
             'demand' => 'required|numeric',
             'balance' => 'required_without:deficit|nullable|numeric',

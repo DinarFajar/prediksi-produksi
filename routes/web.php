@@ -20,6 +20,9 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('/', Controllers\HomeController::class)->name('home');
 
 	// resources
+	Route::resource('predictions', Controllers\PredictionController::class)
+		->parameters(['predictions' => 'production'])
+		->except(['create', 'store']);
 	Route::resource('productions', Controllers\ProductionController::class);
 	Route::resource('templates', Controllers\TemplateController::class);
 });

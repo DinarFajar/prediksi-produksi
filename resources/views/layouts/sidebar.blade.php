@@ -32,6 +32,13 @@
     </a>
   </li>
 
+  <li class="nav-item {{ class_active('predictions.*') }}">
+    <a class="nav-link" href="{{ route('predictions.index') }}">
+      <i class="fas fa-fw fa-question-circle"></i>
+      <span>Prediksi</span>
+    </a>
+  </li>
+
   <!-- Divider -->
   <hr class="sidebar-divider">
 
