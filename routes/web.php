@@ -18,6 +18,7 @@ require __DIR__.'/auth.php';
 
 Route::middleware(['auth'])->group(function () {
 	Route::get('/', Controllers\HomeController::class)->name('home');
+	Route::get('/predictions/print', [Controllers\PredictionController::class, 'print'])->name('predictions.print');
 	Route::get('/productions/print', [Controllers\ProductionController::class, 'print'])->name('productions.print');
 
 	// resources
