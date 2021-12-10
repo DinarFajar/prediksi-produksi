@@ -13,7 +13,10 @@
     <div class="card shadow mb-4">
       <div class="card-header py-3 d-flex align-items-center">
         <h6 class="m-0 font-weight-bold text-primary mr-auto">Data Produksi</h6>
-        <button class="btn btn-primary btn-sm" type="button" onclick="location.assign('{{ route('productions.create') }}')">Tambah</button>
+        <div>
+          <button class="btn btn-primary btn-sm" type="button" onclick="location.assign('{{ route('productions.create') }}')">Tambah</button>
+          <button class="btn btn-primary btn-sm" type="button" onclick="location.assign('{{ route('productions.print') }}')">Cetak</button>
+        </div>
       </div>
       <div class="card-body">
 

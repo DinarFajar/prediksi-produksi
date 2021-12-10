@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Production;
 use App\Http\Requests\ProductionRequest;
+use PDF;
 
 class ProductionController extends Controller
 {
@@ -105,5 +106,14 @@ class ProductionController extends Controller
         return redirect()
             ->route('productions.index')
             ->with('success', 'Data Produksi berhasil dihapus');
+    }
+
+    public function print()
+    {
+        $data['productions'] = Production::latest()->get();
+
+        $pdf = PDF::loadView('productions.pdf', $data);
+        
+        return $pdf->download('rekap-data-produksi.pdf');
     }
 }
