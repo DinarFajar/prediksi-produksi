@@ -23,6 +23,9 @@
       </div>
       <!-- Card Body -->
       <div class="card-body">
+
+        <x-alert-messages />
+
         @if($company)
           {!! $company->about !!}
         @else
