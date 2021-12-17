@@ -13,7 +13,17 @@ class CompanyRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes() 
+    {
+        return ['about' => 'Tentang Perusahaan'];
     }
 
     /**
@@ -23,8 +33,6 @@ class CompanyRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        return ['about' => 'required'];
     }
 }

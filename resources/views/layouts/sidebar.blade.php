@@ -9,7 +9,7 @@
   <hr class="sidebar-divider my-0">
 
   <!-- Nav Item - Dashboard -->
-  <li class="nav-item {{ class_active('home') }}">
+  <li class="nav-item {{ class_active('home', 'home.edit') }}">
     <a class="nav-link" href="{{ route('home') }}">
       <i class="fas fa-fw fa-tachometer-alt"></i>
       <span>Dashboard</span>
