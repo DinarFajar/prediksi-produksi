@@ -1,39 +1,29 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+@extends('layouts.pdf')
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+@section('title', "Rekap Data Produksi")
 
-    <title>Rekap Data Produksi</title>
-  </head>
-  <body>
-    <h4 class="mb-4 text-center">Rekap Data Produksi : Permintaan, Sisa, Kekurangan</h4>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Tanggal</th>
-          <th>Permintaan</th>
-          <th>Sisa</th>
-          <th>Kekurangan</th>
-        </tr>
-      </thead>
-      <tbody>
+@section('content')
+  <h2 class="text-title">Rekap Data Produksi : Permintaan, Sisa, Kekurangan</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Tanggal</th>
+        <th>Permintaan</th>
+        <th>Sisa</th>
+        <th>Kekurangan</th>
+      </tr>
+    </thead>
+    <tbody>
         @foreach($productions as $production)
-          <tr>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{ $production->created_at->format('Y-m-d H:i') }}</td>
-            <td>{{ $production->demand }}</td>
-            <td>{{ $production->balance }}</td>
-            <td>{{ $production->deficit }}</td>
-          </tr>
+        <tr>
+          <td>{{ $loop->iteration }}</td>
+          <td>{{ $production->created_at->format('Y-m-d') }}</td>
+          <td>{{ $production->demand }}</td>
+          <td>{{ $production->balance }}</td>
+          <td>{{ $production->deficit }}</td>
+        </tr>
         @endforeach
-      </tbody>
-    </table>
-  </body>
-</html>
+    </tbody>
+  </table>
+@endsection
