@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Company;
+use App\Http\Requests\CompanyRequest;
 
 class HomeController extends Controller
 {
@@ -25,5 +26,20 @@ class HomeController extends Controller
         $data['company'] = Company::first();
 
         return view('edit_about', $data);
+    }
+
+    public function update(CompanyRequest $request) 
+    {
+        $data = $request->validated();
+
+        if(Company::exists()) {
+            Company::where('id', 1)->update($data);
+        } else {
+            Company::create($data);
+        }
+
+        return redirect()
+            ->route('home')
+            ->with('success', 'Tentang Kami berhasil diperbarui');
     }
 }
