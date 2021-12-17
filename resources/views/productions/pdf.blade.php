@@ -15,7 +15,7 @@
       </tr>
     </thead>
     <tbody>
-        @foreach($productions as $production)
+      @foreach($productions as $production)
         <tr>
           <td>{{ $loop->iteration }}</td>
           <td>{{ $production->created_at->format('Y-m-d') }}</td>
@@ -23,7 +23,7 @@
           <td>{{ $production->balance }}</td>
           <td>{{ $production->deficit }}</td>
         </tr>
-        @endforeach
+      @endforeach
     </tbody>
   </table>
 @endsection

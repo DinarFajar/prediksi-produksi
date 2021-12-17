@@ -18,8 +18,9 @@
         border-collapse: collapse; 
       }
       th { text-align: left; }
-      th, td { padding: 1rem; }
+      th, td { padding: .5rem; }
       table, th, td { border: 1px solid black; }
+      .text-success { color: #28A745; }
     </style>
     
     <title>@yield('title')</title>
