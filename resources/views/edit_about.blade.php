@@ -18,6 +18,9 @@
       </div>
       <!-- Card Body -->
       <div class="card-body">
+
+        <x-validation-errors />
+        
         <form action="{{ route('home.update') }}" method="POST">
           @method('PUT')
           @csrf
