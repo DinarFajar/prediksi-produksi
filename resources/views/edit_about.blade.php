@@ -34,6 +34,8 @@
 @push('scripts')
   <script type="text/javascript" src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script>
   <script type="text/javascript">
-    CKEDITOR.replace('about');
+    CKEDITOR.replace('about', {
+      tabSpaces: 4
+    });
   </script>
 @endpush
