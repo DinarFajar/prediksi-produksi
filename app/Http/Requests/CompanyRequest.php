@@ -23,7 +23,7 @@ class CompanyRequest extends FormRequest
      */
     public function attributes() 
     {
-        return ['about' => 'Tentang Perusahaan'];
+        return ['about' => 'Tentang Kami'];
     }
 
     /**
