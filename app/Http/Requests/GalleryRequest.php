@@ -13,7 +13,27 @@ class GalleryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes() 
+    {
+        return ['picture' => 'Gambar'];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages() 
+    {
+        return ['picture.max' => ':attribute maksimal berukuran 2 MB'];
     }
 
     /**
@@ -23,8 +43,6 @@ class GalleryRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        return ['picture' => 'required|image|max:2048'];
     }
 }
