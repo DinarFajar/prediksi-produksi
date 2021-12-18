@@ -2,3 +2,5 @@
 !.gitignore
 !about/
 !about/about.txt
+!galleries/
+!galleries/*
