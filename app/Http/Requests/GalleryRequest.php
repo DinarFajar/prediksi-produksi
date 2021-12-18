@@ -33,7 +33,7 @@ class GalleryRequest extends FormRequest
      */
     public function messages() 
     {
-        return ['picture.max' => ':attribute maksimal berukuran 2 MB'];
+        return ['picture.max' => ':attribute maksimal berukuran 3 MB'];
     }
 
     /**
@@ -43,6 +43,6 @@ class GalleryRequest extends FormRequest
      */
     public function rules()
     {
-        return ['picture' => 'required|image|max:2048'];
+        return ['picture' => 'required|image|max:3072'];
     }
 }
