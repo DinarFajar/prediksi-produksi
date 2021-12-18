@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Gallery;
 use App\Http\Requests\GalleryRequest;
+use Illuminate\Support\Facades\Storage;
 
 class GalleryController extends Controller
 {
+    private $dir = 'galleries.';
+    private $galleryDir = 'public/galleries/';
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +18,9 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        //
+        $data['galleries'] = Gallery::latest()->get();
+
+        return view($this->dir.'index', $data);
     }
 
     /**
@@ -24,7 +30,7 @@ class GalleryController extends Controller
      */
     public function create()
     {
-        //
+        return view($this->dir.'create');
     }
 
     /**
@@ -35,7 +41,13 @@ class GalleryController extends Controller
      */
     public function store(GalleryRequest $request)
     {
-        //
+        $path = $request->picture->store($this->galleryDir);
+
+        Gallery::create(['filename' => basename($path)]);
+
+        return redirect()
+            ->route('galleries.index')
+            ->with('success', 'Gambar berhasil ditambahkan');
     }
 
     /**
@@ -80,6 +92,12 @@ class GalleryController extends Controller
      */
     public function destroy(Gallery $gallery)
     {
-        //
+        Storage::delete($this->galleryDir.$gallery->filename);
+
+        $gallery->delete();
+
+        return redirect()
+            ->route('galleries.index')
+            ->with('success', 'Gambar berhasil dihapus');
     }
 }
