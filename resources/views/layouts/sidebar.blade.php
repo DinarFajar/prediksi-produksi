@@ -39,6 +39,13 @@
     </a>
   </li>
 
+  <li class="nav-item {{ class_active('galleries.*') }}">
+    <a class="nav-link" href="{{ route('galleries.index') }}">
+      <i class="fas fa-fw fa-images"></i>
+      <span>Galeri</span>
+    </a>
+  </li>
+
   <!-- Divider -->
   <hr class="sidebar-divider">
 
