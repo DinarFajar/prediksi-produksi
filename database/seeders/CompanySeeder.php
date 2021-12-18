@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class CompanySeeder extends Seeder
 {
@@ -13,6 +15,12 @@ class CompanySeeder extends Seeder
      */
     public function run()
     {
-        //
+        $now = now();
+
+        DB::table('companies')->insert([
+            'about' => Storage::get('public/about/about.txt'),
+            'created_at' => $now,
+            'updated_at' => $now,
+        ]);
     }
 }
