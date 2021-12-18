@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             TemplateSeeder::class,
             UserSeeder::class,
             CompanySeeder::class,
+            GallerySeeder::class,
         ]);
     }
 }
