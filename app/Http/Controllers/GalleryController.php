@@ -97,7 +97,14 @@ class GalleryController extends Controller
         $gallery->delete();
 
         return redirect()
-            ->route('galleries.index')
+            ->route('galleries.all')
             ->with('success', 'Gambar berhasil dihapus');
+    }
+
+    public function all() 
+    {
+        $data['galleries'] = Gallery::latest()->get();
+
+        return view($this->dir.'delete', $data);
     }
 }
