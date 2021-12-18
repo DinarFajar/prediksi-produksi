@@ -24,6 +24,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::put('/update', [Controllers\HomeController::class, 'update'])->name('home.update');
 
 	// resources
+	Route::resource('galleries', Controllers\GalleryController::class);
 	Route::resource('predictions', Controllers\PredictionController::class)
 		->parameters(['predictions' => 'production'])
 		->except(['create', 'store']);
