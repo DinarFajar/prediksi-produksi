@@ -17,7 +17,7 @@
         <div class="row">
           @foreach($galleries as $gallery)
             <div class="col-sm-3 mb-4">
-              <img class="img-fluid" src="{{ $gallery->fullUrl() }}">
+              <img class="img-fluid" src="{{ $gallery->fullUrl() }}" loading="lazy">
             </div>
           @endforeach
         </div>
