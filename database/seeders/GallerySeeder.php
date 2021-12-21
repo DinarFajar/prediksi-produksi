@@ -45,16 +45,6 @@ class GallerySeeder extends Seeder
             ],
             [
                 'filename' => 'sewing.jpg',
-                'created_at' => $now->subMinutes(2),
-                'updated_at' => $now->subMinutes(2),
-            ],
-            [
-                'filename' => 'zahwa.jpg',
-                'created_at' => $now->subMinutes(1),
-                'updated_at' => $now->subMinutes(1),
-            ],
-            [
-                'filename' => 'Shofiya.png',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],
