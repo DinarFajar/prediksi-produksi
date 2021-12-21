@@ -21,7 +21,7 @@
 
 <p>Alamat : Jl. Kusumodilagan No.313, rt 6 rw 10 , Joyosuran, Kec. Ps. Kliwon, Kota Surakarta, Jawa Tengah 57116</p>
 
-<p>Whatsapp : 083879462642</p>
+<p>Whatsapp : <a href="https://wa.me/083879462642" target="_blank">083879462642</a></p>
 
 <p>Email : <a href="mailto:shofiyagudangcs@gmail.com">shofiyagudangcs@gmail.com</a></p>
 
@@ -30,3 +30,5 @@
 <p>Instagram : shofiya.line</p>
 
 <p>Toko : Gedung Beteng Trade Center di lantai 1 C5 no 21, lantai 2 D2 no 5-6 dan lantai 2 F5 no 1</p>
+
+<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15819.395224068881!2d110.8259764!3d-7.5914299!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9308f00b42d82458!2sShofiya%20hijab!5e0!3m2!1sid!2sid!4v1640101953669!5m2!1sid!2sid" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
