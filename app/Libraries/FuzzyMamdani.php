@@ -63,7 +63,20 @@ class FuzzyMamdani
 	public $hasilImplikasiR16;
 	public $hasilImplikasiR17;
 	public $hasilImplikasiR18;
-	
+
+	// RULE PRODUKSI
+	public $ruleProduksiSedikit = [];
+	public $ruleProduksiSedang = [];
+	public $ruleProduksiBanyak = [];
+
+	public $ruleProduksiSedikitWithKey = [];
+	public $ruleProduksiSedangWithKey = [];
+	public $ruleProduksiBanyakWithKey = [];
+
+	// HASIL KOMPOSISI
+	public $hasilKomposisiSedikit;
+	public $hasilKomposisiSedang;
+	public $hasilKomposisiBanyak;	
 
 	public function __construct($jumlahPermintaan, $jumlahSisa = 0, $jumlahKekurangan = 0) 
 	{
@@ -73,6 +86,7 @@ class FuzzyMamdani
 
 		$this->fuzzifikasi();
 		$this->implikasi();
+		$this->komposisi();
 	}
 
 	// FUZIFIKASI
@@ -147,7 +161,11 @@ class FuzzyMamdani
 
 	public function fuzzifikasiSisaSedikit() 
 	{
-		if($this->jumlahSisa <= $this->_batasSisaSedikit) {
+		if($this->jumlahSisa === 0) {
+			$this->hasilFuzzySisaSedikit = 0;
+		}
+
+		elseif($this->jumlahSisa <= $this->_batasSisaSedikit) {
 			$this->hasilFuzzySisaSedikit = 1;
 		} 
 
@@ -196,7 +214,11 @@ class FuzzyMamdani
 
 	public function fuzzifikasiKekuranganSedikit() 
 	{
-		if($this->jumlahKekurangan <= $this->_batasKekuranganSedikit) {
+		if($this->jumlahKekurangan === 0) {
+			$this->hasilFuzzyKekuranganSedikit = 0;
+		}
+
+		elseif($this->jumlahKekurangan <= $this->_batasKekuranganSedikit) {
 			$this->hasilFuzzyKekuranganSedikit = 1;
 		} 
 
@@ -317,93 +339,235 @@ class FuzzyMamdani
 		$this->implikasiR18();
 	}
 
+	// Produksi Sedang
 	public function implikasiR1() 
 	{
 		$this->hasilImplikasiR1 = min($this->hasilFuzzyPermintaanSedikit, $this->hasilFuzzySisaSedikit);
+		array_push($this->ruleProduksiSedang, $this->hasilImplikasiR1);
+		$this->ruleProduksiSedangWithKey["R1"] = $this->hasilImplikasiR1;
 	}
 
+	// Produksi Sedikit
 	public function implikasiR2() 
 	{
 		$this->hasilImplikasiR2 = min($this->hasilFuzzyPermintaanSedikit, $this->hasilFuzzySisaSedang);
+		array_push($this->ruleProduksiSedikit, $this->hasilImplikasiR2);
+		$this->ruleProduksiSedikitWithKey["R2"] = $this->hasilImplikasiR2;
 	}
 
+
+	// Produksi Sedikit
 	public function implikasiR3() 
 	{
 		$this->hasilImplikasiR3 = min($this->hasilFuzzyPermintaanSedikit, $this->hasilFuzzySisaBanyak);
+		array_push($this->ruleProduksiSedikit, $this->hasilImplikasiR3);
+		$this->ruleProduksiSedikitWithKey["R3"] = $this->hasilImplikasiR3;
 	}
 
+	// Produksi Sedang
 	public function implikasiR4() 
 	{
 		$this->hasilImplikasiR4 = min($this->hasilFuzzyPermintaanSedang, $this->hasilFuzzySisaSedikit);
+		array_push($this->ruleProduksiSedang, $this->hasilImplikasiR4);
+		$this->ruleProduksiSedangWithKey["R4"] = $this->hasilImplikasiR4;
 	}
 
+	// Produksi Sedang
 	public function implikasiR5() 
 	{
 		$this->hasilImplikasiR5 = min($this->hasilFuzzyPermintaanSedang, $this->hasilFuzzySisaSedang);
+		array_push($this->ruleProduksiSedang, $this->hasilImplikasiR5);
+		$this->ruleProduksiSedangWithKey["R5"] = $this->hasilImplikasiR5;
 	}
 
+	// Produksi Sedikit
 	public function implikasiR6() 
 	{
 		$this->hasilImplikasiR6 = min($this->hasilFuzzyPermintaanSedang, $this->hasilFuzzySisaBanyak);
+		array_push($this->ruleProduksiSedikit, $this->hasilImplikasiR6);
+		$this->ruleProduksiSedikitWithKey["R6"] = $this->hasilImplikasiR6;
 	}
 
+	// Produksi Banyak
 	public function implikasiR7() 
 	{
 		$this->hasilImplikasiR7 = min($this->hasilFuzzyPermintaanBanyak, $this->hasilFuzzySisaSedikit);
+		array_push($this->ruleProduksiBanyak, $this->hasilImplikasiR7);
+		$this->ruleProduksiBanyakWithKey["R7"] = $this->hasilImplikasiR7;
 	}
 
+	// Produksi Sedang
 	public function implikasiR8() 
 	{
 		$this->hasilImplikasiR8 = min($this->hasilFuzzyPermintaanBanyak, $this->hasilFuzzySisaSedang);
+		array_push($this->ruleProduksiSedang, $this->hasilImplikasiR8);
+		$this->ruleProduksiSedangWithKey["R8"] = $this->hasilImplikasiR8;
 	}
 
+	// Produksi Sedang
 	public function implikasiR9() 
 	{
 		$this->hasilImplikasiR9 = min($this->hasilFuzzyPermintaanBanyak, $this->hasilFuzzySisaBanyak);
+		array_push($this->ruleProduksiSedang, $this->hasilImplikasiR9);
+		$this->ruleProduksiSedangWithKey["R9"] = $this->hasilImplikasiR9;
 	}
 
+	// Produksi Sedang
 	public function implikasiR10() 
 	{
 		$this->hasilImplikasiR10 = min($this->hasilFuzzyPermintaanSedikit, $this->hasilFuzzyKekuranganSedikit);
+		array_push($this->ruleProduksiSedang, $this->hasilImplikasiR10);
+		$this->ruleProduksiSedangWithKey["R10"] = $this->hasilImplikasiR10;
 	}
 
+	// Produksi Sedang
 	public function implikasiR11() 
 	{
 		$this->hasilImplikasiR11 = min($this->hasilFuzzyPermintaanSedikit, $this->hasilFuzzyKekuranganSedang);
+		array_push($this->ruleProduksiSedang, $this->hasilImplikasiR11);
+		$this->ruleProduksiSedangWithKey["R11"] = $this->hasilImplikasiR11;
 	}
 
+	// Produksi Banyak
 	public function implikasiR12() 
 	{
 		$this->hasilImplikasiR12 = min($this->hasilFuzzyPermintaanSedikit, $this->hasilFuzzyKekuranganBanyak);
+		array_push($this->ruleProduksiBanyak, $this->hasilImplikasiR12);
+		$this->ruleProduksiBanyakWithKey["R12"] = $this->hasilImplikasiR12;
 	}
 
+	// Produksi Sedang
 	public function implikasiR13() 
 	{
 		$this->hasilImplikasiR13 = min($this->hasilFuzzyPermintaanSedang, $this->hasilFuzzyKekuranganSedikit);
+		array_push($this->ruleProduksiSedang, $this->hasilImplikasiR13);
+		$this->ruleProduksiSedangWithKey["R13"] = $this->hasilImplikasiR13;
 	}
 
+	// Produksi Sedang
 	public function implikasiR14() 
 	{
 		$this->hasilImplikasiR14 = min($this->hasilFuzzyPermintaanSedang, $this->hasilFuzzyKekuranganSedang);
+		array_push($this->ruleProduksiSedang, $this->hasilImplikasiR14);
+		$this->ruleProduksiSedangWithKey["R14"] = $this->hasilImplikasiR14;
 	}
 
+	// Produksi Banyak
 	public function implikasiR15() 
 	{
 		$this->hasilImplikasiR15 = min($this->hasilFuzzyPermintaanSedang, $this->hasilFuzzyKekuranganBanyak);
+		array_push($this->ruleProduksiBanyak, $this->hasilImplikasiR15);
+		$this->ruleProduksiBanyakWithKey["R15"] = $this->hasilImplikasiR15;
 	}
 
+	// Produksi Sedang
 	public function implikasiR16() 
 	{
 		$this->hasilImplikasiR16 = min($this->hasilFuzzyPermintaanBanyak, $this->hasilFuzzyKekuranganSedikit);
+		array_push($this->ruleProduksiSedang, $this->hasilImplikasiR16);
+		$this->ruleProduksiSedangWithKey["R16"] = $this->hasilImplikasiR16;
 	}
 
+	// Produksi Banyak
 	public function implikasiR17() 
 	{
 		$this->hasilImplikasiR17 = min($this->hasilFuzzyPermintaanBanyak, $this->hasilFuzzyKekuranganSedang);
+		array_push($this->ruleProduksiBanyak, $this->hasilImplikasiR17);
+		$this->ruleProduksiBanyakWithKey["R17"] = $this->hasilImplikasiR17;
 	}
 
+	// Produksi Banyak
 	public function implikasiR18() 
 	{
 		$this->hasilImplikasiR18 = min($this->hasilFuzzyPermintaanBanyak, $this->hasilFuzzyKekuranganBanyak);
+		array_push($this->ruleProduksiBanyak, $this->hasilImplikasiR18);
+		$this->ruleProduksiBanyakWithKey["R18"] = $this->hasilImplikasiR18;
+	}
+
+
+	// KOMPOSISI
+
+	public function komposisi() 
+	{
+		$this->komposisiSedikit();
+		$this->komposisiSedang();
+		$this->komposisiBanyak();
+	}
+
+	public function komposisiSedikit() 
+	{
+		$this->hasilKomposisiSedikit = max($this->ruleProduksiSedikit);
+	}
+
+	public function komposisiSedang() 
+	{
+		$this->hasilKomposisiSedang = max($this->ruleProduksiSedang);
+	}	
+
+	public function komposisiBanyak() 
+	{
+		$this->hasilKomposisiBanyak = max($this->ruleProduksiBanyak);
+	}
+
+
+	// METADATA
+	public function meta() 
+	{
+		return [
+			"Permintaan" => $this->jumlahPermintaan,
+			"Sisa" => $this->jumlahSisa,
+			"Kekurangan" => $this->jumlahKekurangan,
+
+			"Derajat Keanggotaan" => [
+				"Permintaan" => [
+					"Sedikit" => $this->hasilFuzzyPermintaanSedikit,
+					"Sedang" => $this->hasilFuzzyPermintaanSedang,
+					"Banyak" => $this->hasilFuzzyPermintaanBanyak,
+				],
+				"Sisa" => [
+					"Sedikit" => $this->hasilFuzzySisaSedikit,
+					"Sedang" => $this->hasilFuzzySisaSedang,
+					"Banyak" => $this->hasilFuzzySisaBanyak,
+				],
+				"Kekurangan" => [
+					"Sedikit" => $this->hasilFuzzyKekuranganSedikit,
+					"Sedang" => $this->hasilFuzzyKekuranganSedang,
+					"Banyak" => $this->hasilFuzzyKekuranganBanyak,
+				],
+			],
+
+			"Implikasi" => [
+				"R1" => $this->hasilImplikasiR1,
+				"R2" => $this->hasilImplikasiR2,
+				"R3" => $this->hasilImplikasiR3,
+				"R4" => $this->hasilImplikasiR4,
+				"R5" => $this->hasilImplikasiR5,
+				"R6" => $this->hasilImplikasiR6,
+				"R7" => $this->hasilImplikasiR7,
+				"R8" => $this->hasilImplikasiR8,
+				"R9" => $this->hasilImplikasiR9,
+				"R10" => $this->hasilImplikasiR10,
+				"R11" => $this->hasilImplikasiR11,
+				"R12" => $this->hasilImplikasiR12,
+				"R13" => $this->hasilImplikasiR13,
+				"R14" => $this->hasilImplikasiR14,
+				"R15" => $this->hasilImplikasiR15,
+				"R16" => $this->hasilImplikasiR16,
+				"R17" => $this->hasilImplikasiR17,
+				"R18" => $this->hasilImplikasiR18,
+			],
+
+			"Rule Produksi" => [
+				"Sedikit" => $this->ruleProduksiSedikitWithKey,
+				"Sedang" => $this->ruleProduksiSedangWithKey,
+				"Banyak" => $this->ruleProduksiBanyakWithKey,
+			],
+
+			"Komposisi" => [
+				"Sedikit" => $this->hasilKomposisiSedikit,
+				"Sedang" => $this->hasilKomposisiSedang,
+				"Banyak" => $this->hasilKomposisiBanyak,
+			],
+		];
 	}
 }
