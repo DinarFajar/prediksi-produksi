@@ -25,12 +25,17 @@
             <input id="demand" class="form-control" type="number" name="demand" value="{{ old('demand', $production->demand) }}" autofocus>
           </div>
           <div class="form-group">
-            <label for="balance"><b>Sisa</b></label>
-            <input id="balance" class="form-control" type="number" name="balance" value="{{ old('balance', ($production->balance !== 0 ? $production->balance : '')) }}">
-          </div>
-          <div class="form-group">
-            <label for="deficit"><b>Kekurangan</b></label>
-            <input id="deficit" class="form-control" type="number" name="deficit" value="{{ old('deficit', ($production->deficit !== 0 ? $production->deficit : '')) }}">
+            <div class="mb-2">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="balance_or_deficit" id="balance" value="balance" onchange="focusToValue()" onclick="focusToValue()" {{ old('balance_or_deficit', ($production->balance !== 0 ? 'balance' : null)) === 'balance' ? 'checked' : null }} required>
+                <label class="form-check-label" for="balance"><b>Sisa</b></label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="balance_or_deficit" id="deficit" value="deficit" onchange="focusToValue()" onclick="focusToValue()" {{ old('balance_or_deficit', ($production->deficit !== 0 ? 'deficit' : null)) === 'deficit' ? 'checked' : null }} required>
+                <label class="form-check-label" for="deficit"><b>Kekurangan</b></label>
+              </div>
+            </div>
+            <input id="balance_or_deficit_value" class="form-control" type="number" name="balance_or_deficit_value" value="{{ old('balance_or_deficit_value', ($production->balance !== 0 ? $production->balance : $production->deficit)) }}" required>
           </div>
           <button class="btn btn-primary" type="submit">Simpan</button>
         </form>
@@ -41,33 +46,8 @@
 
 @push('scripts')
   <script type="text/javascript">
-    const balance = document.getElementById('balance');
-    const deficit = document.getElementById('deficit');
-
-    document.body.onload = function() {
-      if((balance.value.trim().length !== 0) && Number.isInteger(parseInt(balance.value))) {
-        deficit.disabled = true;
-      } else if((deficit.value.trim().length !== 0) && Number.isInteger(parseInt(deficit.value))) {
-        balance.disabled = true;
-      }
-    };
-
-    balance.addEventListener('keyup', function() {
-      const value = this.value;
-      if((value.trim().length !== 0) && Number.isInteger(parseInt(value))) {
-        deficit.disabled = true;
-      } else {
-        deficit.disabled = false;
-      }
-    });
-
-    deficit.addEventListener('keyup', function() {
-      const value = this.value;
-      if((value.trim().length !== 0) && Number.isInteger(parseInt(value))) {
-        balance.disabled = true;
-      } else {
-        balance.disabled = false;
-      }
-    });
+    function focusToValue() {
+      document.getElementById('balance_or_deficit_value').focus();
+    }
   </script>
 @endpush
