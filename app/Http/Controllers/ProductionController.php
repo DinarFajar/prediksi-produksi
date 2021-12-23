@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Production;
 use App\Http\Requests\ProductionRequest;
+use App\Libraries\FuzzyMamdani;
 use PDF;
 
 class ProductionController extends Controller
@@ -41,6 +42,14 @@ class ProductionController extends Controller
     public function store(ProductionRequest $request)
     {
         $data = $request->validated();
+
+        if($request->filled('balance')) {
+            $data['prediction'] = (new FuzzyMamdani($data['demand'], $data['balance']))->prediksiFix;
+        }
+
+        if($request->filled('deficit')) {
+            $data['prediction'] = (new FuzzyMamdani($data['demand'], 0, $data['deficit']))->prediksiFix;
+        }
 
         Production::create($data);
 
@@ -85,6 +94,14 @@ class ProductionController extends Controller
     public function update(ProductionRequest $request, Production $production)
     {
         $data = $request->validated();
+
+        if($request->filled('balance')) {
+            $data['prediction'] = (new FuzzyMamdani($data['demand'], $data['balance']))->prediksiFix;
+        }
+
+        if($request->filled('deficit')) {
+            $data['prediction'] = (new FuzzyMamdani($data['demand'], 0, $data['deficit']))->prediksiFix;
+        }
 
         $production->update($data);
 
