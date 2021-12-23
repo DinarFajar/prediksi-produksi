@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ProductionRequest extends FormRequest
 {
@@ -25,9 +26,8 @@ class ProductionRequest extends FormRequest
     {
         return [
             'demand' => 'Permintaan',
-            'balance' => 'Sisa',
-            'deficit' => 'Kekurangan',
-            'production' => 'Produksi',
+            'balance_or_deficit' => 'Sisa atau Kekurangan',
+            'balance_or_deficit_value' => 'Nilai dari Sisa atau Kekurangan',
         ];
     }
 
@@ -44,8 +44,8 @@ class ProductionRequest extends FormRequest
 
         return [
             'demand' => 'required|numeric',
-            'balance' => 'required_without:deficit|nullable|numeric',
-            'deficit' => 'required_without:balance|nullable|numeric',
+            'balance_or_deficit' => ['required', Rule::in(['balance', 'deficit'])],
+            'balance_or_deficit_value' => 'required|numeric',
         ];
     }
 }
