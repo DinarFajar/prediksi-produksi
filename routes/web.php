@@ -32,3 +32,9 @@ Route::middleware(['auth'])->group(function () {
 	Route::resource('productions', Controllers\ProductionController::class);
 	Route::resource('templates', Controllers\TemplateController::class);
 });
+
+Route::get('/fuzzy/{permintaan}/{sisa}/{kekurangan}', function(int $permintaan, int $sisa, int $kekurangan) {
+	$fuzzy = new App\Libraries\FuzzyMamdani($permintaan, $sisa, $kekurangan);
+
+	dd($fuzzy->meta());
+});
