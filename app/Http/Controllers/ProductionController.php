@@ -43,12 +43,14 @@ class ProductionController extends Controller
     {
         $data = $request->validated();
 
-        if($request->filled('balance')) {
-            $data['prediction'] = (new FuzzyMamdani($data['demand'], $data['balance']))->prediksiFix;
+        if($data['balance_or_deficit'] === 'balance') {
+            $data['balance'] = $data['balance_or_deficit_value'];
+            $data['prediction'] = (new FuzzyMamdani($data['demand'], $data['balance_or_deficit_value']))->prediksiFix;
         }
 
-        if($request->filled('deficit')) {
-            $data['prediction'] = (new FuzzyMamdani($data['demand'], 0, $data['deficit']))->prediksiFix;
+        elseif($data['balance_or_deficit'] === 'deficit') {
+            $data['deficit'] = $data['balance_or_deficit_value'];
+            $data['prediction'] = (new FuzzyMamdani($data['demand'], 0, $data['balance_or_deficit_value']))->prediksiFix;
         }
 
         Production::create($data);
@@ -95,12 +97,16 @@ class ProductionController extends Controller
     {
         $data = $request->validated();
 
-        if($request->filled('balance')) {
-            $data['prediction'] = (new FuzzyMamdani($data['demand'], $data['balance']))->prediksiFix;
+        if($data['balance_or_deficit'] === 'balance') {
+            $data['balance'] = $data['balance_or_deficit_value'];
+            $data['deficit'] = 0;
+            $data['prediction'] = (new FuzzyMamdani($data['demand'], $data['balance_or_deficit_value']))->prediksiFix;
         }
 
-        if($request->filled('deficit')) {
-            $data['prediction'] = (new FuzzyMamdani($data['demand'], 0, $data['deficit']))->prediksiFix;
+        elseif($data['balance_or_deficit'] === 'deficit') {
+            $data['balance'] = 0;
+            $data['deficit'] = $data['balance_or_deficit_value'];
+            $data['prediction'] = (new FuzzyMamdani($data['demand'], 0, $data['balance_or_deficit_value']))->prediksiFix;
         }
 
         $production->update($data);
