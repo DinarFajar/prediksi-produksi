@@ -78,7 +78,7 @@
     function deleteData() {
       event.preventDefault();
 
-      if(confirm('Anda yakin ingin menghapus data ini?')) {
+      if(confirm('Anda yakin ingin menghapus hasil prediksi?')) {
         document.getElementById('formDelete').submit();
       } else {
         return false;
