@@ -42,7 +42,7 @@
                   <td>{{ $production->balance }}</td>
                   <td>{{ $production->deficit }}</td>
                   <td class="text-success">{{ $production->prediction }}</td>
-                  <th>{{ $production->production }}</th>
+                  <th>{{ $production->production === 0 ? '' : $production->production }}</th>
                   <td><a href="{{ route('predictions.show', ['production' => $production->id]) }}">lihat detail</a></td>
                 </tr>
               @endforeach
