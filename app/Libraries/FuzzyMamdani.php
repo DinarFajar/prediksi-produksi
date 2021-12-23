@@ -76,7 +76,39 @@ class FuzzyMamdani
 	// HASIL KOMPOSISI
 	public $hasilKomposisiSedikit;
 	public $hasilKomposisiSedang;
-	public $hasilKomposisiBanyak;	
+	public $hasilKomposisiBanyak;
+
+	// TITIK
+	public $titikA1;
+	public $titikA2;
+	public $titikA3;
+	public $titikA4;
+	public $titikA5;
+	public $titikA6;
+
+	// LUAS BANGUNAN
+	public $luasBangunanL1;
+	public $luasBangunanL2;
+	public $luasBangunanL3;
+	public $luasBangunanL4;
+	public $luasBangunanL5;
+	public $luasBangunanL6;
+	public $luasBangunanL7;
+	public $luasBangunanTotal;
+
+	// LUAS MOMEN
+	public $luasMomenM1;
+	public $luasMomenM2;
+	public $luasMomenM3;
+	public $luasMomenM4;
+	public $luasMomenM5;
+	public $luasMomenM6;
+	public $luasMomenM7;
+	public $luasMomenTotal;
+
+	// HASIL PREDIKSI
+	public $prediksi;
+	public $prediksiFix;
 
 	public function __construct($jumlahPermintaan, $jumlahSisa = 0, $jumlahKekurangan = 0) 
 	{
@@ -87,6 +119,8 @@ class FuzzyMamdani
 		$this->fuzzifikasi();
 		$this->implikasi();
 		$this->komposisi();
+		$this->defuzzifikasi();
+		$this->prediksi();
 	}
 
 	// FUZIFIKASI
@@ -355,7 +389,6 @@ class FuzzyMamdani
 		$this->ruleProduksiSedikitWithKey["R2"] = $this->hasilImplikasiR2;
 	}
 
-
 	// Produksi Sedikit
 	public function implikasiR3() 
 	{
@@ -510,6 +543,219 @@ class FuzzyMamdani
 	}
 
 
+	// DEFUZZIFIKASI
+
+	public function defuzzifikasi() 
+	{
+		$this->titik();
+		$this->luasBangunan();
+		$this->luasMomen();
+	}
+
+	public function titik() 
+	{
+		$this->titikA1 = $this->_batasProduksiSedikit;
+		$this->titikA6 = $this->_batasProduksiBanyak;
+
+		$this->titikA2();
+		$this->titikA3();
+		$this->titikA4();
+		$this->titikA5();
+	}
+
+	public function titikA2() 
+	{
+		if($this->hasilKomposisiSedikit <= $this->hasilKomposisiSedang) {
+			$this->titikA2 = $this->_batasProduksiSedikit + (27 * $this->hasilKomposisiSedikit);
+		} else {
+			$this->titikA2 = $this->_batasProduksiSedang - (27 * $this->hasilKomposisiSedikit);
+		}
+	}
+
+	public function titikA3() 
+	{
+		if($this->hasilKomposisiSedikit <= $this->hasilKomposisiSedang) {
+			$this->titikA3 = $this->_batasProduksiSedikit + (27 * $this->hasilKomposisiSedang);
+		} else {
+			$this->titikA3 = $this->_batasProduksiSedang - (27 * $this->hasilKomposisiSedang);
+		}
+	}
+
+	public function titikA4() 
+	{
+		if($this->hasilKomposisiSedang <= $this->hasilKomposisiBanyak) {
+			$this->titikA4 = $this->_batasProduksiSedang + (80 * $this->hasilKomposisiSedang);
+		} else {
+			$this->titikA4 = $this->_batasProduksiBanyak - (80 * $this->hasilKomposisiSedang);
+		}
+	}
+
+	public function titikA5() 
+	{
+		if($this->hasilKomposisiSedang <= $this->hasilKomposisiBanyak) {
+			$this->titikA5 = $this->_batasProduksiSedang + (80 * $this->hasilKomposisiBanyak);
+		} else {
+			$this->titikA5 = $this->_batasProduksiBanyak - (80 * $this->hasilKomposisiBanyak);
+		}
+	}
+
+	public function luasBangunan() 
+	{
+		$this->luasBangunanL1();
+		$this->luasBangunanL2();
+		$this->luasBangunanL3();
+		$this->luasBangunanL4();
+		$this->luasBangunanL5();
+		$this->luasBangunanL6();
+		$this->luasBangunanL7();
+		$this->luasBangunanTotal();
+	}
+
+	public function luasBangunanL1() 
+	{
+		$this->luasBangunanL1 = ($this->titikA2 * $this->hasilKomposisiSedikit) - ($this->titikA1 * $this->hasilKomposisiSedikit);
+	}
+
+	public function luasBangunanL2() 
+	{
+		if($this->hasilKomposisiSedikit <= $this->hasilKomposisiSedang) {
+			$this->luasBangunanL2 = 0;
+		} else {
+			$this->luasBangunanL2 = (((($this->_batasProduksiSedang / 27) * $this->titikA3)) - (((1 / 27) / 2) * $this->titikA3 * $this->titikA3)) - (((($this->_batasProduksiSedang / 27) * $this->titikA2)) - (((1 / 27) / 2) * $this->titikA2 * $this->titikA2));
+		}
+	}
+
+	public function luasBangunanL3() 
+	{
+		if($this->hasilKomposisiSedikit >= $this->hasilKomposisiSedang) {
+			$this->luasBangunanL3 = 0;
+		} else {
+			$this->luasBangunanL3 = ((((1 / 27) / 2) * $this->titikA3 * $this->titikA3) - ((($this->_batasProduksiSedikit / 27) * $this->titikA3))) - ((((1 / 27) / 2) * $this->titikA2 * $this->titikA2) - ((($this->_batasProduksiSedikit / 27) * $this->titikA2)));
+		}
+	}
+
+	public function luasBangunanL4() 
+	{
+		$this->luasBangunanL4 = ($this->titikA4 * $this->hasilKomposisiSedang) - ($this->titikA3 * $this->hasilKomposisiSedang);
+	}
+
+	public function luasBangunanL5() 
+	{
+		if($this->hasilKomposisiSedang <= $this->hasilKomposisiBanyak) {
+			$this->luasBangunanL5 = 0;
+		} else {
+			$this->luasBangunanL5 = (((($this->_batasProduksiBanyak / 80) * $this->titikA5)) - (((1 / 80) / 2) * $this->titikA5 * $this->titikA5)) - (((($this->_batasProduksiBanyak / 80) * $this->titikA4)) - (((1 / 80) / 2) * $this->titikA4 * $this->titikA4));
+		}
+	}
+
+	public function luasBangunanL6() 
+	{
+		if($this->hasilKomposisiSedang >= $this->hasilKomposisiBanyak) {
+			$this->luasBangunanL6 = 0;
+		} else {
+			$this->luasBangunanL6 = ((((1 / 80) / 2) * $this->titikA5 * $this->titikA5) - ((($this->_batasProduksiSedang / 80) * $this->titikA5))) - ((((1 / 80) / 2) * $this->titikA4 * $this->titikA4) - ((($this->_batasProduksiSedang / 80) * $this->titikA4)));
+		}
+	}
+
+	public function luasBangunanL7() 
+	{
+		$this->luasBangunanL7 = ($this->titikA6 * $this->hasilKomposisiBanyak) - ($this->titikA5 * $this->hasilKomposisiBanyak);
+	}
+
+	public function luasBangunanTotal() 
+	{
+		$this->luasBangunanTotal = 
+			$this->luasBangunanL1 +
+			$this->luasBangunanL2 +
+			$this->luasBangunanL3 +
+			$this->luasBangunanL4 +
+			$this->luasBangunanL5 +
+			$this->luasBangunanL6 +
+			$this->luasBangunanL7;
+	}
+
+	public function luasMomen() 
+	{
+		$this->luasMomenM1();
+		$this->luasMomenM2();
+		$this->luasMomenM3();
+		$this->luasMomenM4();
+		$this->luasMomenM5();
+		$this->luasMomenM6();
+		$this->luasMomenM7();
+		$this->luasMomenTotal();
+	}
+
+	public function luasMomenM1()
+	{
+		$this->luasMomenM1 = ($this->titikA2 * $this->titikA2 * ($this->hasilKomposisiSedikit / 2)) - ($this->titikA1 * $this->titikA1 * ($this->hasilKomposisiSedikit / 2));
+	}
+
+	public function luasMomenM2()
+	{
+		if($this->hasilKomposisiSedikit <= $this->hasilKomposisiSedang) {
+			$this->luasMomenM2 = 0;
+		} else {
+			$this->luasMomenM2 = ((((($this->_batasProduksiSedang / 27) / 2) * $this->titikA3 * $this->titikA3)) - (((1 / 27) /3) * $this->titikA3 * $this->titikA3 * $this->titikA3)) - ((((($this->_batasProduksiSedang / 27) / 2) * $this->titikA2 * $this->titikA2)) - (((1 / 27) / 3) * $this->titikA2 * $this->titikA2 * $this->titikA2));
+		}
+	}
+
+	public function luasMomenM3() 
+	{
+		if($this->hasilKomposisiSedikit >= $this->hasilKomposisiSedang) {
+			$this->luasMomenM3 = 0;
+		} else {
+			$this->luasMomenM3 = ((((1 / 27) / 3) * $this->titikA3 * $this->titikA3 * $this->titikA3) - (((($this->_batasProduksiSedikit / 27) / 2) * $this->titikA3 * $this->titikA3))) - ((((1 / 27) / 3) * $this->titikA2 * $this->titikA2 * $this->titikA2) - (((($this->_batasProduksiSedikit / 27) / 2) * $this->titikA2 * $this->titikA2)));
+		}
+	}
+
+	public function luasMomenM4() 
+	{
+		$this->luasMomenM4 = ($this->titikA4 * $this->titikA4 * ($this->hasilKomposisiSedang / 2)) - ($this->titikA3 * $this->titikA3 * ($this->hasilKomposisiSedang / 2));
+	}
+
+	public function luasMomenM5()
+	{
+		if($this->hasilKomposisiSedang <= $this->hasilKomposisiBanyak) {
+			$this->luasMomenM5 = 0;
+		} else {
+			$this->luasMomenM5 = ((((($this->_batasProduksiBanyak / 80) / 2) * $this->titikA5 * $this->titikA5)) - (((1 / 80) / 3) * $this->titikA5 * $this->titikA5 * $this->titikA5)) - ((((($this->_batasProduksiBanyak / 80) / 2) * $this->titikA4 * $this->titikA4)) - (((1 / 80) / 3) * $this->titikA4 * $this->titikA4 * $this->titikA4));
+		}
+	}
+
+	public function luasMomenM6()
+	{
+		if($this->hasilKomposisiSedang >= $this->hasilKomposisiBanyak) {
+			$this->luasMomenM6 = 0;
+		} else {
+			$this->luasMomenM6 = ((((1 / 80 ) / 3 ) * $this->titikA5 * $this->titikA5 * $this->titikA5) - (((($this->_batasProduksiSedang / 80) / 2) * $this->titikA5 * $this->titikA5))) - ((((1 / 80) / 3) * $this->titikA4 * $this->titikA4 * $this->titikA4) - (((($this->_batasProduksiSedang / 80) / 2) * $this->titikA4 * $this->titikA4)));
+		}
+	}
+
+	public function luasMomenM7() 
+	{
+		$this->luasMomenM7 = ($this->titikA6 * $this->titikA6 * ($this->hasilKomposisiBanyak / 2)) - ($this->titikA5 * $this->titikA5 * ($this->hasilKomposisiBanyak / 2));
+	}
+
+	public function luasMomenTotal() 
+	{
+		$this->luasMomenTotal = 
+			$this->luasMomenM1 +
+			$this->luasMomenM2 +
+			$this->luasMomenM3 +
+			$this->luasMomenM4 +
+			$this->luasMomenM5 +
+			$this->luasMomenM6 +
+			$this->luasMomenM7;
+	}
+
+	public function prediksi()
+	{
+		$this->prediksi = $this->luasMomenTotal / $this->luasBangunanTotal;
+		$this->prediksiFix = (int) round($this->prediksi);
+	}
+
+
 	// METADATA
 	public function meta() 
 	{
@@ -568,6 +814,40 @@ class FuzzyMamdani
 				"Sedang" => $this->hasilKomposisiSedang,
 				"Banyak" => $this->hasilKomposisiBanyak,
 			],
+
+			"Defuzzifikasi" => [
+				"Titik" => [
+					"A1" => $this->titikA1,
+					"A2" => $this->titikA2,
+					"A3" => $this->titikA3,
+					"A4" => $this->titikA4,
+					"A5" => $this->titikA5,
+					"A6" => $this->titikA6,
+				],
+				"Luas Bangunan" => [
+					"L1" => $this->luasBangunanL1,
+					"L2" => $this->luasBangunanL2,
+					"L3" => $this->luasBangunanL3,
+					"L4" => $this->luasBangunanL4,
+					"L5" => $this->luasBangunanL5,
+					"L6" => $this->luasBangunanL6,
+					"L7" => $this->luasBangunanL7,
+					"Total" => $this->luasBangunanTotal,
+				],
+				"Luas Momen" => [
+					"M1" => $this->luasMomenM1,
+					"M2" => $this->luasMomenM2,
+					"M3" => $this->luasMomenM3,
+					"M4" => $this->luasMomenM4,
+					"M5" => $this->luasMomenM5,
+					"M6" => $this->luasMomenM6,
+					"M7" => $this->luasMomenM7,
+					"Total" => $this->luasMomenTotal,
+				],
+			],
+
+			"Hasil PREDIKSI" => $this->prediksi,
+			"Hasil PREDIKSI (dibulatkan)" => $this->prediksiFix,
 		];
 	}
 }
