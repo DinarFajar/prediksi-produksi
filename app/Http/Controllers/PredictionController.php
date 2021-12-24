@@ -104,7 +104,7 @@ class PredictionController extends Controller
 
     public function print()
     {
-        $data['productions'] = Production::latest()->get();
+        $data['productions'] = Production::all();
 
         $pdf = PDF::loadView('predictions.pdf', $data);
         

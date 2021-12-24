@@ -133,7 +133,7 @@ class ProductionController extends Controller
 
     public function print()
     {
-        $data['productions'] = Production::latest()->get();
+        $data['productions'] = Production::all();
 
         $pdf = PDF::loadView('productions.pdf', $data);
         
