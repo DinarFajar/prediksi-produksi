@@ -20,28 +20,28 @@ class GallerySeeder extends Seeder
         DB::table('galleries')->insert([
             [
                 'filename' => 'cutting.jpg',
-                'created_at' => $now->subMinutes(7),
-                'updated_at' => $now->subMinutes(7),
-            ],
-            [
-                'filename' => 'cutting1.jpg',
                 'created_at' => $now->subMinutes(6),
                 'updated_at' => $now->subMinutes(6),
             ],
             [
-                'filename' => 'editing.jpg',
+                'filename' => 'cutting1.jpg',
                 'created_at' => $now->subMinutes(5),
                 'updated_at' => $now->subMinutes(5),
             ],
             [
-                'filename' => 'Printingpola.jpg',
+                'filename' => 'editing.jpg',
                 'created_at' => $now->subMinutes(4),
                 'updated_at' => $now->subMinutes(4),
             ],
             [
-                'filename' => 'semple.jpg',
+                'filename' => 'Printingpola.jpg',
                 'created_at' => $now->subMinutes(3),
                 'updated_at' => $now->subMinutes(3),
+            ],
+            [
+                'filename' => 'semple.jpg',
+                'created_at' => $now->subMinutes(2),
+                'updated_at' => $now->subMinutes(2),
             ],
             [
                 'filename' => 'sewing.jpg',
