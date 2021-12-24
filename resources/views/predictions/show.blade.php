@@ -46,7 +46,7 @@
           <div class="form-group row text-success">
             <label class="col-sm-2"><b>Prediksi</b></label>
             <div class="col-sm-10">  
-              <p>{{ $production->prediction }}</p>
+              <p>{{ $production->prediction !== 0 ? $production->prediction : '' }}</p>
             </div>
           </div>
           <div class="form-group row">

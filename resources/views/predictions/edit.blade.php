@@ -41,7 +41,7 @@
           <div class="form-group row">
             <label for="prediction" class="col-sm-2 col-form-label"><b>Prediksi</b></label>
             <div class="col-sm-10">
-              <input id="prediction" class="form-control-plaintext" type="number" name="prediction" value="{{ $production->prediction }}" readonly>
+              <input id="prediction" class="form-control-plaintext" type="number" name="prediction" value="{{ $production->prediction !== 0 ? $production->prediction : '' }}" readonly>
             </div>
           </div>
           <div class="form-group row">
