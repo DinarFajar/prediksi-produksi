@@ -18,6 +18,7 @@ require __DIR__.'/auth.php';
 
 Route::middleware(['auth'])->group(function () {
 	Route::get('/', Controllers\HomeController::class)->name('home');
+	Route::match(['get', 'post'], '/fuzzy-mamdani', Controllers\FuzzyMamdaniController::class)->name('fuzzy-mamdani');
 	Route::get('/galleries/all', [Controllers\GalleryController::class, 'all'])->name('galleries.all');
 	Route::get('/edit', [Controllers\HomeController::class, 'edit'])->name('home.edit');
 	Route::get('/predictions/print', [Controllers\PredictionController::class, 'print'])->name('predictions.print');
