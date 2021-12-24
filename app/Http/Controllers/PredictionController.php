@@ -17,7 +17,7 @@ class PredictionController extends Controller
      */
     public function index()
     {
-        $data['productions'] = Production::latest()->get();
+        $data['productions'] = Production::all();
 
         return view($this->dir.'index', $data);
     }
