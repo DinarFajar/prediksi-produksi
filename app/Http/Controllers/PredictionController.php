@@ -80,7 +80,7 @@ class PredictionController extends Controller
     {
         $data = $request->validated();
 
-        $production->update($data);
+        $production->update(['production' => $data['production']]);
 
         return redirect()
             ->route('predictions.show', ['production' => $production->id])
