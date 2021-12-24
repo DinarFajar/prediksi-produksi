@@ -18,7 +18,7 @@ class GalleryController extends Controller
      */
     public function index()
     {
-        $data['galleries'] = Gallery::latest()->get();
+        $data['galleries'] = Gallery::all();
 
         return view($this->dir.'index', $data);
     }
@@ -103,7 +103,7 @@ class GalleryController extends Controller
 
     public function all() 
     {
-        $data['galleries'] = Gallery::latest()->get();
+        $data['galleries'] = Gallery::all();
 
         return view($this->dir.'delete', $data);
     }
