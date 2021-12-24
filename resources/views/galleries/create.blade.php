@@ -21,7 +21,7 @@
           @csrf
           <div class="form-group">
             <label for="picture"><b>File Gambar</b></label>
-            <input id="picture" class="form-control-file" type="file" name="picture" accept="image/*">
+            <input id="picture" class="form-control-file" type="file" name="picture" accept="image/*" style="width: auto;" required>
           </div>
           <button class="btn btn-primary" type="submit">Upload</button>
         </form>
