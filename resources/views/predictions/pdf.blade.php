@@ -25,7 +25,7 @@
           <td>{{ $production->balance }}</td>
           <td>{{ $production->deficit }}</td>
           <td class="text-success">{{ $production->prediction }}</td>
-          <th>{{ $production->production }}</th>
+          <td>{{ $production->production !== 0 ? $production->production : '' }}</td>
         </tr>
       @endforeach
     </tbody>
