@@ -47,7 +47,7 @@
           <div class="form-group row">
             <label for="production" class="col-sm-2 col-form-label"><b>Produksi</b></label>
             <div class="col-sm-2">
-              <input id="production" class="form-control" type="number" name="production" value="{{ old('production', ($production->production !== 0 ? $production->production : '')) }}">
+              <input id="production" class="form-control" type="number" name="production" value="{{ old('production', ($production->production !== 0 ? $production->production : '')) }}" autofocus required>
             </div>
           </div>
           <button class="btn btn-primary" type="submit">Simpan</button>
