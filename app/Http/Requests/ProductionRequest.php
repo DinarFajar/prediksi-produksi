@@ -28,6 +28,7 @@ class ProductionRequest extends FormRequest
             'demand' => 'Permintaan',
             'balance_or_deficit' => 'Sisa atau Kekurangan',
             'balance_or_deficit_value' => 'Nilai dari Sisa atau Kekurangan',
+            'production' => 'Produksi',
         ];
     }
 
