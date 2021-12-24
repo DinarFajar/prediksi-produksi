@@ -24,6 +24,7 @@
             <div class="col-12">
               <div class="p-5">
                 <div class="text-center">
+                  <img class="mb-4" src="{{ asset('storage/galleries/Shofiya.png') }}" width="100">
                   <h1 class="h4 text-gray-900 mb-4">Masuk ke Dashboard Panel</h1>
                 </div>
                 <x-alert-messages />
