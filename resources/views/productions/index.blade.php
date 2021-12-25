@@ -31,6 +31,7 @@
                 <th>Permintaan</th>
                 <th>Sisa</th>
                 <th>Kekurangan</th>
+                <th>Produksi</th>
                 <th></th>
               </tr>
             </thead>
@@ -42,7 +43,16 @@
                   <td>{{ $production->demand }}</td>
                   <td>{{ $production->balance }}</td>
                   <td>{{ $production->deficit }}</td>
-                  <td><a href="{{ route('productions.show', ['production' => $production->id]) }}">lihat detail</a></td>
+                  <td>{{ $production->production !== 0 ? $production->production : '' }}</td>
+                  <td>
+                    <form action="{{ route('productions.destroy', ['production' => $production->id]) }}" method="POST">
+                      @method('DELETE')
+                      @csrf
+                      <a href="{{ route('productions.edit', ['production' => $production->id]) }}">Edit</a>
+                      <span class="mx-1 text-black-50">|</span>
+                      <a class="text-danger" href="{{ route('productions.destroy', ['production' => $production->id]) }}" onclick="deleteData()">Hapus</a>
+                    </form>
+                  </td>
                 </tr>
               @endforeach
             </tbody>
@@ -55,4 +65,15 @@
 
 @push('scripts')
   <x-datatables type="scripts" />
+  <script type="text/javascript">
+    function deleteData() {
+      event.preventDefault();
+
+      if(confirm('Anda yakin ingin menghapus data ini?')) {
+        event.target.closest('form').submit();
+      } else {
+        return false;
+      }
+    }
+  </script>
 @endpush
