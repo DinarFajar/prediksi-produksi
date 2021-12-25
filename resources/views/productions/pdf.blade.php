@@ -12,6 +12,7 @@
         <th>Permintaan</th>
         <th>Sisa</th>
         <th>Kekurangan</th>
+        <th>Produksi</th>
       </tr>
     </thead>
     <tbody>
@@ -22,6 +23,7 @@
           <td>{{ $production->demand }}</td>
           <td>{{ $production->balance }}</td>
           <td>{{ $production->deficit }}</td>
+          <td>{{ $production->production !== 0 ? $production->production : '' }}</td>
         </tr>
       @endforeach
     </tbody>
