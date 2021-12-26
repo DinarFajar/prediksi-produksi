@@ -47,6 +47,17 @@ class PredictionController extends Controller
         return back()->with('success', 'Nilai produksi berhasil ditambahkan');
     }
 
+    public function storeManually(ProductionRequest $request, Production $production)
+    {
+        $data = $request->validated();
+
+        $production->update([
+            'production' => $data['production']
+        ]);
+
+        return back()->with('success', 'Nilai produksi berhasil ditambahkan');
+    }
+
     /**
      * Display the specified resource.
      *

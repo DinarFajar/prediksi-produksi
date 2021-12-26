@@ -28,7 +28,7 @@ class ProductionRequest extends FormRequest
             'demand' => 'Permintaan',
             'balance_or_deficit' => 'Sisa atau Kekurangan',
             'balance_or_deficit_value' => 'Nilai dari Sisa atau Kekurangan',
-            'production' => 'Produksi',
+            'production' => 'Nilai Produksi',
         ];
     }
 
@@ -38,8 +38,14 @@ class ProductionRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {
-        if($this->is('predictions/*') && $this->isMethod('put')) {
+    {   
+        // store production manually
+        if($this->is('predictions/*/store-manually') && $this->isMethod('post')) {
+            return ['production' => 'required|numeric'];
+        }
+
+        // edit production
+        elseif($this->is('predictions/*') && $this->isMethod('put')) {
             return ['production' => 'required|numeric'];
         }
 

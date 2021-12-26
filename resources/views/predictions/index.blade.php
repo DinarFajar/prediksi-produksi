@@ -18,6 +18,7 @@
       <div class="card-body">
 
         <x-alert-messages />
+        <x-validation-errors />
 
         <div class="table-responsive py-1 pr-1">
           <table id="dataTable" class="table table-bordered" width="100%" cellspacing="0">
@@ -53,7 +54,7 @@
                         <span class="mx-1 text-black-50">|</span>
                         <a class="text-danger" href="{{ route('predictions.destroy', ['production' => $production->id]) }}" onclick="deleteData()">Hapus</a>
                       @else
-                        <a href="javascript:void(0)" title="Menambahkan nilai prediksi ke produksi" onclick="openModalAddProduction({{ $production->prediction }})">Tambah</a>
+                        <a href="javascript:void(0)" title="Menambahkan nilai prediksi ke produksi" onclick="openModalAddProduction('{{ route('predictions.store', ['production' => $production->id]) }}', '{{ route('predictions.storeManually', ['production' => $production->id]) }}', {{ $production->prediction }})">Tambah</a>
                       @endif
                     </form>
                   </td>
@@ -66,7 +67,7 @@
     </div>
   </div>
 
-  <!-- Modal -->
+  <!-- Modal Add Production Value -->
   <div class="modal" id="addProductionVal" tabindex="-1" aria-labelledby="addProductionValLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -78,12 +79,37 @@
         <div class="modal-body text-center py-5">
           <p>Apakah anda ingin mengisi nilai produksi sesuai dengan <br>nilai prediksi <span id="textOfPredictionVal"></span> ?</p>
           <div>
-            <form action="{{ route('predictions.store', ['production' => $production->id]) }}" method="POST">
+            <form id="formAddProdVal" method="POST">
               @csrf
               <button type="submit" class="btn btn-sm btn-primary">Ya</button>
-              <button type="button" class="btn btn-sm btn-secondary">Tidak</button>
+              <button type="button" class="btn btn-sm btn-secondary" onclick="openModalAddProductionManually()">Tidak</button>
             </form>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Add Production Value Manually -->
+  <div class="modal" id="addProductionValManually" tabindex="-1" aria-labelledby="addProductionValManuallyLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addProductionValManuallyLabel">Masukkan Nilai Produksi</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="formAddProdValManually" method="POST">
+            @csrf
+            <div class="form-group mb-0">
+              <input class="form-control" type="number" name="production" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" form="formAddProdValManually">Simpan</button>
         </div>
       </div>
     </div>
@@ -93,10 +119,19 @@
 @push('scripts')
   <x-datatables type="scripts" />
   <script type="text/javascript">
-    function openModalAddProduction(valOfPrediction) {
+    function openModalAddProduction(actionURL, actionURLManually, valOfPrediction) {
+      document.getElementById('formAddProdVal').action = actionURL;
+      document.getElementById('formAddProdValManually').action = actionURLManually;
       document.getElementById('textOfPredictionVal').innerText = valOfPrediction;
 
       $('#addProductionVal').modal();
+    }
+
+    function openModalAddProductionManually() {
+      $('#addProductionVal').modal('hide');
+      $('#addProductionValManually').modal();
+
+      document.querySelector('#formAddProdValManually > div > input').focus();
     }
 
     function deleteData() {

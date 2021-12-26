@@ -22,6 +22,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('/galleries/all', [Controllers\GalleryController::class, 'all'])->name('galleries.all');
 	Route::get('/edit', [Controllers\HomeController::class, 'edit'])->name('home.edit');
 	Route::post('/predictions/{production}', [Controllers\PredictionController::class, 'store'])->name('predictions.store');
+	Route::post('/predictions/{production}/store-manually', [Controllers\PredictionController::class, 'storeManually'])->name('predictions.storeManually');
 	Route::get('/predictions/print', [Controllers\PredictionController::class, 'print'])->name('predictions.print');
 	Route::get('/productions/print', [Controllers\ProductionController::class, 'print'])->name('productions.print');
 	Route::put('/update', [Controllers\HomeController::class, 'update'])->name('home.update');
