@@ -87,8 +87,8 @@ class PredictionController extends Controller
         $production->update(['production' => $data['production']]);
 
         return redirect()
-            ->route('predictions.show', ['production' => $production->id])
-            ->with('success', 'Data Prediksi berhasil diperbarui');
+            ->route('predictions.index')
+            ->with('success', 'Nilai produksi berhasil diperbarui');
     }
 
     /**
