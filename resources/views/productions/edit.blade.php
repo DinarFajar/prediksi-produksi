@@ -8,7 +8,7 @@
 
     <div class="card shadow mb-4">
       <div class="card-header card-header-cs py-0 d-flex align-items-center">
-        <div class="back-icon py-3" title="kembali" onclick="location.assign('{{ route('productions.show', ['production' => $production->id]) }}')">
+        <div class="back-icon py-3" title="kembali" onclick="location.assign('{{ route('productions.index') }}')">
           <i class="fas fw fa-arrow-left"></i>
         </div>
         <h6 class="m-0 ml-1 font-weight-bold text-primary">Edit Produksi</h6>
