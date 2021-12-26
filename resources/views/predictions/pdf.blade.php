@@ -12,8 +12,8 @@
         <th>Permintaan</th>
         <th>Sisa</th>
         <th>Kekurangan</th>
-        <th class="text-success">Prediksi</th>
         <th>Produksi</th>
+        <th class="text-success">Prediksi</th>
       </tr>
     </thead>
     <tbody>
@@ -24,8 +24,8 @@
           <td>{{ $production->demand }}</td>
           <td>{{ $production->balance }}</td>
           <td>{{ $production->deficit }}</td>
-          <td class="text-success">{{ $production->prediction !== 0 ? $production->prediction : '' }}</td>
           <td>{{ $production->production !== 0 ? $production->production : '' }}</td>
+          <td class="text-success">{{ $production->prediction !== 0 ? $production->prediction : '' }}</td>
         </tr>
       @endforeach
     </tbody>
