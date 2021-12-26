@@ -21,6 +21,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::match(['get', 'post'], '/fuzzy-mamdani', Controllers\FuzzyMamdaniController::class)->name('fuzzy-mamdani');
 	Route::get('/galleries/all', [Controllers\GalleryController::class, 'all'])->name('galleries.all');
 	Route::get('/edit', [Controllers\HomeController::class, 'edit'])->name('home.edit');
+	Route::post('/predictions/{production}', [Controllers\PredictionController::class, 'store'])->name('predictions.store');
 	Route::get('/predictions/print', [Controllers\PredictionController::class, 'print'])->name('predictions.print');
 	Route::get('/productions/print', [Controllers\ProductionController::class, 'print'])->name('productions.print');
 	Route::put('/update', [Controllers\HomeController::class, 'update'])->name('home.update');

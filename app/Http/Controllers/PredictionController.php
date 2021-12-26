@@ -38,9 +38,13 @@ class PredictionController extends Controller
      * @param  \App\Http\Requests\ProductionRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductionRequest $request)
+    public function store(Production $production)
     {
-        //
+        $production->update([
+            'production' => $production->prediction
+        ]);
+
+        return back()->with('success', 'Nilai produksi berhasil ditambahkan');
     }
 
     /**

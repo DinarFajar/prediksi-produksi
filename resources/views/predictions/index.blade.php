@@ -28,8 +28,8 @@
                 <th>Permintaan</th>
                 <th>Sisa</th>
                 <th>Kekurangan</th>
-                <th class="text-success">Prediksi</th>
                 <th>Produksi</th>
+                <th class="text-success">Prediksi</th>
                 <th></th>
               </tr>
             </thead>
@@ -41,9 +41,22 @@
                   <td>{{ $production->demand }}</td>
                   <td>{{ $production->balance }}</td>
                   <td>{{ $production->deficit }}</td>
-                  <td class="text-success">{{ $production->prediction !== 0 ? $production->prediction : '' }}</td>
                   <td>{{ $production->production !== 0 ? $production->production : '' }}</td>
-                  <td><a href="{{ route('predictions.show', ['production' => $production->id]) }}">lihat detail</a></td>
+                  <td class="text-success">{{ $production->prediction !== 0 ? $production->prediction : '' }}</td>
+                  <td>
+                    <form action="{{ route('predictions.destroy', ['production' => $production->id]) }}" method="POST">
+                      @method('DELETE')
+                      @csrf
+                      
+                      @if($production->production !== 0)
+                        <a href="{{ route('predictions.edit', ['production' => $production->id]) }}">Edit</a>
+                        <span class="mx-1 text-black-50">|</span>
+                        <a class="text-danger" href="{{ route('predictions.destroy', ['production' => $production->id]) }}" onclick="deleteData()">Hapus</a>
+                      @else
+                        <a href="javascript:void(0)" title="Menambahkan nilai prediksi ke produksi" onclick="openModalAddProduction({{ $production->prediction }})">Tambah</a>
+                      @endif
+                    </form>
+                  </td>
                 </tr>
               @endforeach
             </tbody>
@@ -52,8 +65,48 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal -->
+  <div class="modal" id="addProductionVal" tabindex="-1" aria-labelledby="addProductionValLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center py-5">
+          <p>Apakah anda ingin mengisi nilai produksi sesuai dengan <br>nilai prediksi <span id="textOfPredictionVal"></span> ?</p>
+          <div>
+            <form action="{{ route('predictions.store', ['production' => $production->id]) }}" method="POST">
+              @csrf
+              <button type="submit" class="btn btn-sm btn-primary">Ya</button>
+              <button type="button" class="btn btn-sm btn-secondary">Tidak</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection
 
 @push('scripts')
   <x-datatables type="scripts" />
+  <script type="text/javascript">
+    function openModalAddProduction(valOfPrediction) {
+      document.getElementById('textOfPredictionVal').innerText = valOfPrediction;
+
+      $('#addProductionVal').modal();
+    }
+
+    function deleteData() {
+      event.preventDefault();
+
+      if(confirm('Anda yakin ingin menghapus nilai produksi ini?')) {
+        event.target.closest('form').submit();
+      } else {
+        return false;
+      }
+    }
+  </script>
 @endpush
