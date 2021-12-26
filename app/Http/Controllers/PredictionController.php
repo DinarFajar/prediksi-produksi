@@ -99,11 +99,9 @@ class PredictionController extends Controller
      */
     public function destroy(Production $production)
     {
-        $production->update(['prediction' => 0]);
+        $production->update(['production' => 0]);
 
-        return redirect()
-            ->route('predictions.index')
-            ->with('success', 'Hasil Prediksi berhasil dihapus');
+        return back()->with('success', 'Nilai produksi berhasil dihapus');
     }
 
     public function print()
