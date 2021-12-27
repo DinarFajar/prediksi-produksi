@@ -20,6 +20,11 @@
         <x-alert-messages />
         <x-validation-errors />
 
+        <form id="formDeleteProductionValue" method="POST">
+          @method('DELETE')
+          @csrf
+        </form>
+
         <div class="table-responsive py-1 pr-1">
           <table id="dataTable" class="table table-bordered" width="100%" cellspacing="0">
             <thead>
@@ -44,19 +49,14 @@
                   <td>{{ $production->deficit }}</td>
                   <td>{{ $production->production !== 0 ? $production->production : '' }}</td>
                   <td class="text-success">{{ $production->prediction !== 0 ? $production->prediction : '' }}</td>
-                  <td>
-                    <form action="{{ route('predictions.destroy', ['production' => $production->id]) }}" method="POST">
-                      @method('DELETE')
-                      @csrf
-                      
-                      @if($production->production !== 0)
-                        <a href="{{ route('predictions.edit', ['production' => $production->id]) }}">Edit</a>
-                        <span class="mx-1 text-black-50">|</span>
-                        <a class="text-danger" href="{{ route('predictions.destroy', ['production' => $production->id]) }}" onclick="deleteData()">Hapus</a>
-                      @else
-                        <a href="javascript:void(0)" title="Menambahkan nilai prediksi ke produksi" onclick="openModalAddProduction('{{ route('predictions.store', ['production' => $production->id]) }}', '{{ route('predictions.storeManually', ['production' => $production->id]) }}', {{ $production->prediction }})">Tambah</a>
-                      @endif
-                    </form>
+                  <td>                      
+                    @if($production->production !== 0)
+                      <a href="{{ route('predictions.edit', ['production' => $production->id]) }}">Edit</a>
+                      <span class="mx-1 text-black-50">|</span>
+                      <a class="text-danger" href="{{ route('predictions.destroy', ['production' => $production->id]) }}" onclick="deleteProductionValue()">Hapus</a>
+                    @else
+                      <a href="{{ route('predictions.store', ['production' => $production->id]) }}" title="Menambahkan nilai prediksi ke produksi" onclick="openModalAddProductionValue()" data-action-url-manually="{{ route('predictions.storeManually', ['production' => $production->id]) }}" data-prediction-value="{{ $production->prediction }}">Tambah</a>
+                    @endif
                   </td>
                 </tr>
               @endforeach
@@ -68,7 +68,7 @@
   </div>
 
   <!-- Modal Add Production Value -->
-  <div class="modal" id="addProductionVal" tabindex="-1" aria-labelledby="addProductionValLabel" aria-hidden="true">
+  <div class="modal" id="modalAddProductionValue" tabindex="-1" aria-labelledby="modalAddProductionValueLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -76,13 +76,13 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body text-center py-5">
-          <p>Apakah anda ingin mengisi nilai produksi sesuai dengan <br>nilai prediksi <span id="textOfPredictionVal"></span> ?</p>
+        <div class="modal-body text-center py-4">
+          <p>Apakah anda ingin mengisi nilai produksi sesuai dengan <br>nilai prediksi <span id="textOfPredictionValue"></span> ?</p>
           <div>
-            <form id="formAddProdVal" method="POST">
+            <form id="formAddProductionValue" method="POST">
               @csrf
               <button type="submit" class="btn btn-sm btn-primary">Ya</button>
-              <button type="button" class="btn btn-sm btn-secondary" onclick="openModalAddProductionManually()">Tidak</button>
+              <button type="button" class="btn btn-sm btn-secondary" onclick="openModalAddProductionValueManually()">Tidak</button>
             </form>
           </div>
         </div>
@@ -91,25 +91,25 @@
   </div>
 
   <!-- Modal Add Production Value Manually -->
-  <div class="modal" id="addProductionValManually" tabindex="-1" aria-labelledby="addProductionValManuallyLabel" aria-hidden="true">
+  <div class="modal" id="modalAddProductionValueManually" tabindex="-1" aria-labelledby="modalAddProductionValueManuallyLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="addProductionValManuallyLabel">Masukkan Nilai Produksi</h5>
+          <h5 class="modal-title" id="modalAddProductionValueManuallyLabel">Masukkan Nilai Produksi</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <form id="formAddProdValManually" method="POST">
+          <form id="formAddProductionValueManually" method="POST">
             @csrf
             <div class="form-group mb-0">
-              <input class="form-control" type="number" name="production" required>
+              <input class="form-control" type="number" name="production" autocomplete="off" required>
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" form="formAddProdValManually">Simpan</button>
+          <button type="submit" class="btn btn-primary" form="formAddProductionValueManually">Simpan</button>
         </div>
       </div>
     </div>
@@ -119,26 +119,34 @@
 @push('scripts')
   <x-datatables type="scripts" />
   <script type="text/javascript">
-    function openModalAddProduction(actionURL, actionURLManually, valOfPrediction) {
-      document.getElementById('formAddProdVal').action = actionURL;
-      document.getElementById('formAddProdValManually').action = actionURLManually;
-      document.getElementById('textOfPredictionVal').innerText = valOfPrediction;
+    function openModalAddProductionValue() {
+      event.preventDefault();
 
-      $('#addProductionVal').modal();
+      $('#modalAddProductionValue').modal();
+      
+      const thisElement = event.target;
+
+      document.getElementById('formAddProductionValue').action = thisElement.href;
+      document.getElementById('formAddProductionValueManually').action = thisElement.dataset.actionUrlManually;
+      document.getElementById('textOfPredictionValue').innerText = thisElement.dataset.predictionValue;
+
     }
 
-    function openModalAddProductionManually() {
-      $('#addProductionVal').modal('hide');
-      $('#addProductionValManually').modal();
+    function openModalAddProductionValueManually() {
+      $('#modalAddProductionValue').modal('hide');
+      $('#modalAddProductionValueManually').modal();
 
-      document.querySelector('#formAddProdValManually > div > input').focus();
+      document.querySelector('#formAddProductionValueManually > div.form-group > input').focus();
     }
 
-    function deleteData() {
+    function deleteProductionValue() {
       event.preventDefault();
 
       if(confirm('Anda yakin ingin menghapus nilai produksi ini?')) {
-        event.target.closest('form').submit();
+        const form = document.getElementById('formDeleteProductionValue');
+
+        form.action = event.target.href;
+        form.submit();
       } else {
         return false;
       }
