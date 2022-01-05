@@ -15,6 +15,7 @@ class CreatePermintaanTable extends Migration
     {
         Schema::create('permintaan', function (Blueprint $table) {
             $table->id();
+            $table->datetime('tanggal');
             $table->integer('permintaan');
             $table->integer('sisa')->default(0);
             $table->integer('kekurangan')->default(0);
