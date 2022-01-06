@@ -15,6 +15,8 @@ class CreatePrediksiTable extends Migration
     {
         Schema::create('prediksi', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('permintaan_id')->constrained('permintaan');
+            $table->integer('prediksi');
             $table->timestamps();
         });
     }
