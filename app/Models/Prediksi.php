@@ -30,4 +30,9 @@ class Prediksi extends Model
     {
         return $this->hasOne(Produksi::class);
     }
+
+    public function permintaan()
+    {
+        return $this->belongsTo(Permintaan::class);
+    }
 }
