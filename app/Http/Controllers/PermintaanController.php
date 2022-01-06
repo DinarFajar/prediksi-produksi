@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\{Permintaan, Prediksi, Produksi};
 use App\Http\Requests\PermintaanRequest;
+use App\Libraries\FuzzyMamdani;
 
 class PermintaanController extends Controller
 {
