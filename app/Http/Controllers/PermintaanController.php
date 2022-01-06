@@ -46,11 +46,13 @@ class PermintaanController extends Controller
 
         if($data['sisa_or_kekurangan'] === 'sisa') {
             $data['sisa'] = $data['sisa_or_kekurangan_value'];
+            
             $prediksiValue = (new FuzzyMamdani($data['permintaan'], $data['sisa_or_kekurangan_value']))->prediksiFix;
         }
 
         elseif($data['sisa_or_kekurangan'] === 'kekurangan') {
             $data['kekurangan'] = $data['sisa_or_kekurangan_value'];
+            
             $prediksiValue = (new FuzzyMamdani($data['permintaan'], 0, $data['sisa_or_kekurangan_value']))->prediksiFix;
         }
 
@@ -103,19 +105,24 @@ class PermintaanController extends Controller
     {
         $data = $request->validated();
 
+        $prediksiValue = null;
+
         if($data['sisa_or_kekurangan'] === 'sisa') {
             $data['sisa'] = $data['sisa_or_kekurangan_value'];
             $data['kekurangan'] = 0;
-            $data['prediksi'] = (new FuzzyMamdani($data['permintaan'], $data['sisa_or_kekurangan_value']))->prediksiFix;
+            
+            $prediksiValue = (new FuzzyMamdani($data['permintaan'], $data['sisa_or_kekurangan_value']))->prediksiFix;
         }
 
         elseif($data['sisa_or_kekurangan'] === 'kekurangan') {
             $data['sisa'] = 0;
             $data['kekurangan'] = $data['sisa_or_kekurangan_value'];
-            $data['prediksi'] = (new FuzzyMamdani($data['permintaan'], 0, $data['sisa_or_kekurangan_value']))->prediksiFix;
+            
+            $prediksiValue = (new FuzzyMamdani($data['permintaan'], 0, $data['sisa_or_kekurangan_value']))->prediksiFix;
         }
 
         $permintaan->update($data);
+        $permintaan->prediksi->update(['prediksi' => $prediksiValue]);
 
         return redirect()
             ->route('permintaan.index')
@@ -130,9 +137,9 @@ class PermintaanController extends Controller
      */
     public function destroy(Permintaan $permintaan)
     {
-        $permintaan->prediksi->produksi()->delete();
+        $permintaan->prediksi->produksi->delete();
 
-        $permintaan->prediksi()->delete();
+        $permintaan->prediksi->delete();
 
         $permintaan->delete();
 
