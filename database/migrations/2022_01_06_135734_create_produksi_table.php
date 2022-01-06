@@ -15,6 +15,8 @@ class CreateProduksiTable extends Migration
     {
         Schema::create('produksi', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('prediksi_id')->constrained('prediksi');
+            $table->integer('produksi')->default(0);
             $table->timestamps();
         });
     }
