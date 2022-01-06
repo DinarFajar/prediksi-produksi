@@ -8,7 +8,7 @@
 
     <div class="card shadow mb-4">
       <div class="card-header card-header-cs py-0 d-flex align-items-center">
-        <div class="back-icon py-3" title="kembali" onclick="location.assign('{{ route('galleries.index') }}')">
+        <div class="back-icon py-3" title="kembali" onclick="location.assign('{{ route('galeri.index') }}')">
           <i class="fas fw fa-arrow-left"></i>
         </div>
         <h6 class="m-0 ml-1 font-weight-bold text-primary">Upload Gambar Baru</h6>
@@ -17,7 +17,7 @@
 
         <x-validation-errors />
 
-        <form action="{{ route('galleries.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('galeri.store') }}" method="POST" enctype="multipart/form-data">
           @csrf
           <div class="form-group">
             <label for="picture"><b>File Gambar</b></label>

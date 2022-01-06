@@ -17,8 +17,8 @@
             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="{{ route('galleries.create') }}">Upload Gambar</a>
-            <a class="dropdown-item" href="{{ route('galleries.all') }}">Hapus</a>
+            <a class="dropdown-item" href="{{ route('galeri.create') }}">Upload Gambar</a>
+            <a class="dropdown-item" href="{{ route('galeri.all') }}">Hapus</a>
           </div>
         </div>
       </div>

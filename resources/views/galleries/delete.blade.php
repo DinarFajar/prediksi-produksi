@@ -8,7 +8,7 @@
     
     <div class="card shadow mb-4">
       <div class="card-header card-header-cs py-0 d-flex align-items-center">
-        <div class="back-icon py-3" title="kembali" onclick="location.assign('{{ route('galleries.index') }}')">
+        <div class="back-icon py-3" title="kembali" onclick="location.assign('{{ route('galeri.index') }}')">
           <i class="fas fw fa-arrow-left"></i>
         </div>
         <h6 class="m-0 ml-1 font-weight-bold text-primary">Hapus Gambar</h6>
@@ -27,7 +27,7 @@
                   <img class="img-fluid" src="{{ $gallery->fullUrl() }}" loading="lazy">
                 </div>
                 <div>
-                  <button class="btn btn-sm btn-block btn-danger" type="submit" formaction="{{ route('galleries.destroy', ['gallery' => $gallery->id]) }}">Hapus</button>
+                  <button class="btn btn-sm btn-block btn-danger" type="submit" formaction="{{ route('galeri.destroy', ['galeri' => $gallery->id]) }}">Hapus</button>
                 </div>
               </div>
             @endforeach
