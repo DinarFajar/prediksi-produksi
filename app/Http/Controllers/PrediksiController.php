@@ -86,4 +86,13 @@ class PrediksiController extends Controller
     {
         //
     }
+
+    public function cetak()
+    {
+        $data['prediksi'] = Prediksi::all();
+
+        $pdf = PDF::loadView('prediksi.pdf', $data);
+        
+        return $pdf->download('rekap-hasil-prediksi.pdf');
+    }
 }

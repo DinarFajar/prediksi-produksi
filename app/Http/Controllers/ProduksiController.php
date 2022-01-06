@@ -88,4 +88,13 @@ class ProduksiController extends Controller
 
         return back()->with('success', 'Nilai Produksi berhasil dihapus');
     }
+
+    public function cetak()
+    {
+        $data['produksi'] = Produksi::all();
+
+        $pdf = PDF::loadView('produksi.pdf', $data);
+        
+        return $pdf->download('rekap-data-produksi.pdf');
+    }
 }
