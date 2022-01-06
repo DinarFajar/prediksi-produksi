@@ -7,6 +7,8 @@ use App\Http\Requests\ProduksiRequest;
 
 class ProduksiController extends Controller
 {
+    private $dir = 'produksi.';
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +16,9 @@ class ProduksiController extends Controller
      */
     public function index()
     {
-        //
+        $data['produksi'] = Produksi::all();
+
+        return view($this->dir.'index', $data);
     }
 
     /**
@@ -80,6 +84,8 @@ class ProduksiController extends Controller
      */
     public function destroy(Produksi $produksi)
     {
-        //
+        $produksi->update(['produksi' => 0]);
+
+        return back()->with('success', 'Nilai Produksi berhasil dihapus');
     }
 }
