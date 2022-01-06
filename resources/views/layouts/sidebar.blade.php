@@ -16,31 +16,29 @@
     </a>
   </li>
 
-  
-  {{-- <li class="nav-item {{ class_active('templates.*') }}">
-    <a class="nav-link" href="{{ route('templates.index') }}">
-      <i class="fas fa-fw fa-images"></i>
-      <span>Template</span>
-    </a>
-  </li>  --}}
-
-
-  <li class="nav-item {{ class_active('productions.*') }}">
-    <a class="nav-link" href="{{ route('productions.index') }}">
-      <i class="fas fa-fw fa-boxes"></i>
-      <span>Produksi</span>
+  <li class="nav-item {{ class_active('permintaan.*') }}">
+    <a class="nav-link" href="{{ route('permintaan.index') }}">
+      <i class="fas fa-fw fa-list-alt"></i>
+      <span>Permintaan</span>
     </a>
   </li>
 
-  <li class="nav-item {{ class_active('predictions.*') }}">
-    <a class="nav-link" href="{{ route('predictions.index') }}">
+  <li class="nav-item {{ class_active('prediksi.*') }}">
+    <a class="nav-link" href="{{ route('prediksi.index') }}">
       <i class="fas fa-fw fa-question-circle"></i>
       <span>Prediksi</span>
     </a>
   </li>
 
-  <li class="nav-item {{ class_active('galleries.*') }}">
-    <a class="nav-link" href="{{ route('galleries.index') }}">
+  <li class="nav-item {{ class_active('produksi.*') }}">
+    <a class="nav-link" href="{{ route('produksi.index') }}">
+      <i class="fas fa-fw fa-boxes"></i>
+      <span>Produksi</span>
+    </a>
+  </li>
+
+  <li class="nav-item {{ class_active('galeri.*') }}">
+    <a class="nav-link" href="{{ route('galeri.index') }}">
       <i class="fas fa-fw fa-images"></i>
       <span>Galeri</span>
     </a>
