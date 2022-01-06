@@ -40,5 +40,5 @@ Route::middleware(['auth'])->group(function () {
 	Route::resource('galeri', Controllers\GalleryController::class)->except(['show', 'edit', 'update']);
 	Route::resource('permintaan', Controllers\PermintaanController::class)->except(['show']);
 	Route::resource('prediksi', Controllers\PrediksiController::class)->only(['index']);
-	Route::resource('produksi', Controllers\ProduksiController::class)->except(['create', 'show']);
+	Route::resource('produksi', Controllers\ProduksiController::class)->except(['create', 'store', 'show']);
 });

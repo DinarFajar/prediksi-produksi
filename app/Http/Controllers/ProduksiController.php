@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Produksi;
 use App\Http\Requests\ProduksiRequest;
+use PDF;
 
 class ProduksiController extends Controller
 {
@@ -37,9 +38,22 @@ class ProduksiController extends Controller
      * @param  \App\Http\Requests\ProduksiRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProduksiRequest $request)
+    public function store(Produksi $produksi)
     {
-        //
+        $produksi->update([
+            'produksi' => $produksi->prediksi->prediksi
+        ]);
+
+        return back()->with('success', 'Nilai Produksi berhasil ditambahkan');
+    }
+
+    public function storeManually(ProduksiRequest $request, Produksi $produksi)
+    {
+        $data = $request->validated();
+
+        $produksi->update($data);
+
+        return back()->with('success', 'Nilai Produksi berhasil ditambahkan');
     }
 
     /**
@@ -61,7 +75,9 @@ class ProduksiController extends Controller
      */
     public function edit(Produksi $produksi)
     {
-        //
+        $data['produksi'] = $produksi;
+
+        return view($this->dir.'edit', $data);
     }
 
     /**
@@ -73,7 +89,13 @@ class ProduksiController extends Controller
      */
     public function update(ProduksiRequest $request, Produksi $produksi)
     {
-        //
+        $data = $request->validated();
+
+        $produksi->update($data);
+
+        return redirect()
+            ->route('produksi.index')
+            ->with('success', 'Nilai Produksi berhasil diperbarui');
     }
 
     /**

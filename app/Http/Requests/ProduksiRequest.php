@@ -13,7 +13,17 @@ class ProduksiRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return ['produksi' => 'Nilai Produksi'];
     }
 
     /**
@@ -23,8 +33,6 @@ class ProduksiRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        return ['produksi' => 'required|numeric'];
     }
 }
