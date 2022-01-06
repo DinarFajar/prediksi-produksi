@@ -27,4 +27,9 @@ class Permintaan extends Model
         'sisa',
         'kekurangan',
     ];
+
+    public function prediksi()
+    {
+        return $this->hasOne(Prediksi::class);
+    }
 }
