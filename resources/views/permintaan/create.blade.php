@@ -8,7 +8,7 @@
 
     <div class="card shadow mb-4">
       <div class="card-header card-header-cs py-0 d-flex align-items-center">
-        <div class="back-icon py-3" title="kembali" onclick="location.assign('{{ route('permintaan.index') }}')">
+        <div class="back-icon py-3" title="Kembali" onclick="location.assign('{{ route('permintaan.index') }}')">
           <i class="fas fw fa-arrow-left"></i>
         </div>
         <h6 class="m-0 ml-1 font-weight-bold text-primary">Tambah Baru</h6>
