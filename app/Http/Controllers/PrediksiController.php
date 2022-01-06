@@ -7,6 +7,8 @@ use App\Http\Requests\PrediksiRequest;
 
 class PrediksiController extends Controller
 {
+    private $dir = 'prediksi.';
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +16,9 @@ class PrediksiController extends Controller
      */
     public function index()
     {
-        //
+        $data['prediksi'] = Prediksi::all();
+
+        return view($this->dir.'index', $data);
     }
 
     /**
