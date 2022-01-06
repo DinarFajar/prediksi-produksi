@@ -87,7 +87,7 @@ class PrediksiController extends Controller
         //
     }
 
-    public function cetak()
+    public function print()
     {
         $data['prediksi'] = Prediksi::all();
 

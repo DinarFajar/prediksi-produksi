@@ -89,7 +89,7 @@ class ProduksiController extends Controller
         return back()->with('success', 'Nilai Produksi berhasil dihapus');
     }
 
-    public function cetak()
+    public function print()
     {
         $data['produksi'] = Produksi::all();
 
