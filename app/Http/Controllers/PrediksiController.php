@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Prediksi;
 use App\Http\Requests\PrediksiRequest;
+use PDF;
 
 class PrediksiController extends Controller
 {
