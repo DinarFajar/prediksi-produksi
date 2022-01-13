@@ -46,7 +46,7 @@ class GalleryController extends Controller
         Gallery::create(['filename' => basename($path)]);
 
         return redirect()
-            ->route('galleries.index')
+            ->route('galeri.index')
             ->with('success', 'Gambar berhasil ditambahkan');
     }
 
@@ -97,7 +97,7 @@ class GalleryController extends Controller
         $gallery->delete();
 
         return redirect()
-            ->route('galleries.all')
+            ->route('galeri.all')
             ->with('success', 'Gambar berhasil dihapus');
     }
 
