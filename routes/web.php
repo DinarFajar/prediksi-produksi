@@ -37,7 +37,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::match(['get', 'post'], '/fuzzy-mamdani', Controllers\FuzzyMamdaniController::class)->name('fuzzy-mamdani');
 
 	// resources
-	Route::resource('galeri', Controllers\GalleryController::class)->except(['show', 'edit', 'update']);
+	Route::resource('galeri', Controllers\GalleryController::class)->parameters(['galeri' => 'gallery'])->except(['show', 'edit', 'update']);
 	Route::resource('permintaan', Controllers\PermintaanController::class)->except(['show']);
 	Route::resource('prediksi', Controllers\PrediksiController::class)->only(['index']);
 	Route::resource('produksi', Controllers\ProduksiController::class)->except(['create', 'store', 'show']);

@@ -27,7 +27,7 @@
                   <img class="img-fluid" src="{{ $gallery->fullUrl() }}" loading="lazy">
                 </div>
                 <div>
-                  <button class="btn btn-sm btn-block btn-danger" type="submit" formaction="{{ route('galeri.destroy', ['galeri' => $gallery->id]) }}">Hapus</button>
+                  <button class="btn btn-sm btn-block btn-danger" type="submit" formaction="{{ route('galeri.destroy', ['gallery' => $gallery->id]) }}">Hapus</button>
                 </div>
               </div>
             @endforeach
