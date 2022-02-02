@@ -15,16 +15,31 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('users')->truncate();
+
         $now = now();
 
         DB::table('users')->insert([
-            'name' => 'Admin',
-            'email' => 'admin@mail.com',
-            'email_verified_at' => $now,
-            'password' => Hash::make('admin'),
-            'remember_token' => Str::random(10),
-            'created_at' => $now,
-            'updated_at' => $now,
+            [
+                'name' => 'Admin',
+                'email' => 'admin@mail.com',
+                'email_verified_at' => $now,
+                'password' => Hash::make('admin'),
+                'role' => 'ADMIN',
+                'remember_token' => Str::random(10),
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+            [
+                'name' => 'Dinar',
+                'email' => 'mdinarfajar@gmail.com',
+                'email_verified_at' => $now,
+                'password' => Hash::make('dinar'),
+                'role' => 'KEPALA_PRODUKSI',
+                'remember_token' => Str::random(10),
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
         ]);
     }
 }
