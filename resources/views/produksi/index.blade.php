@@ -35,7 +35,9 @@
                 <th>Kekurangan</th>
                 <th>Prediksi</th>
                 <th>Produksi</th>
-                <th></th>
+                @if(auth()->user()->role === 'ADMIN')
+                  <th></th>
+                @endif
               </tr>
             </thead>
             <tbody>
@@ -48,15 +50,17 @@
                   <td>{{ $p->prediksi->permintaan->kekurangan }}</td>
                   <td>{{ $p->prediksi->prediksi }}</td>
                   <td>{{ $p->produksi !== 0 ? $p->produksi : '' }}</td>
-                  <td>                      
-                    @if($p->produksi !== 0)
-                      <a href="{{ route('produksi.edit', ['produksi' => $p->id]) }}">Edit</a>
-                      <span class="mx-1 text-black-50">|</span>
-                      <a class="text-danger" href="{{ route('produksi.destroy', ['produksi' => $p->id]) }}" onclick="deleteProductionValue()">Hapus</a>
-                    @else
-                      <a href="{{ route('produksi.store', ['produksi' => $p->id]) }}" title="Menambahkan nilai prediksi ke produksi" onclick="openModalAddProductionValue()" data-action-url-manually="{{ route('produksi.storeManually', ['produksi' => $p->id]) }}" data-prediction-value="{{ $p->prediksi->prediksi }}">Tambah</a>
-                    @endif
-                  </td>
+                  @if(auth()->user()->role === 'ADMIN')
+                    <td>                      
+                      @if($p->produksi !== 0)
+                        <a href="{{ route('produksi.edit', ['produksi' => $p->id]) }}">Edit</a>
+                        <span class="mx-1 text-black-50">|</span>
+                        <a class="text-danger" href="{{ route('produksi.destroy', ['produksi' => $p->id]) }}" onclick="deleteProductionValue()">Hapus</a>
+                      @else
+                        <a href="{{ route('produksi.store', ['produksi' => $p->id]) }}" title="Menambahkan nilai prediksi ke produksi" onclick="openModalAddProductionValue()" data-action-url-manually="{{ route('produksi.storeManually', ['produksi' => $p->id]) }}" data-prediction-value="{{ $p->prediksi->prediksi }}">Tambah</a>
+                      @endif
+                    </td>
+                  @endif
                 </tr>
               @endforeach
             </tbody>
